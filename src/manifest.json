@@ -61,11 +61,8 @@
     "48": "img/ic_suspendy_48x48.png",
     "128": "img/ic_suspendy_128x128.png"
   },
-  "web_accessible_resources": [
-    "suspended.html"
-  ],
   "content_security_policy": "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self'; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'",
-  "incognito": "split",
+  "incognito": "not_allowed",
   "manifest_version": 2,
   "minimum_chrome_version": "55",
   "commands": {
@@ -101,6 +98,11 @@
     },
     "6-unsuspend-all-windows": {
       "description": "__MSG_ext_cmd_unsuspend_all_windows_description__"
+    }
+  },
+  "applications": {
+    "gecko": {
+      "id": "themarvelloussuspender@dvalter"
     }
   }
 }
