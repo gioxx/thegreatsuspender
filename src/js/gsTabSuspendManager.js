@@ -452,6 +452,7 @@ var gsTabSuspendManager = (function() {
   }
 
   async function saveSuspendData(tab) {
+    gsUtils.log('Saving suspend data for tab', tab)
     const tabProperties = {
       date: new Date(),
       title: tab.title,
@@ -463,8 +464,8 @@ var gsTabSuspendManager = (function() {
     };
     await gsIndexedDb.addSuspendedTabInfo(tabProperties);
 
-    const faviconMeta = await gsFavicon.buildFaviconMetaFromChromeFaviconCache(
-      tab.url,
+    const faviconMeta = await gsFavicon.buildFaviconMetaFromFirefoxFavicon(
+      tab.favIconUrl,
     );
     if (faviconMeta) {
       await gsFavicon.saveFaviconMetaDataToCache(tab.url, faviconMeta);

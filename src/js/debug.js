@@ -29,7 +29,7 @@
     favicon =
       favicon && favicon.indexOf('data') === 0
         ? favicon
-        : gsFavicon.generateChromeFavIconUrlFromUrl(info.tab.url);
+        : chrome.extension.getURL('img/chromeDefaultFavicon.png');
 
     html += '<tr>';
     html += '<td>' + windowId + '</td>';
