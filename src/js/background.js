@@ -646,9 +646,9 @@ var tgs = (function() {
 
   function checkForTriggerUrls(tab, url) {
     // test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
-    }
+    // if (url === 'chrome://extensions/shortcuts') {
+    //   _triggerHotkeyUpdate = true;
+    // }
   }
 
   function handleUnsuspendedTabStateChanged(tab, changeInfo) {
@@ -1041,9 +1041,9 @@ var tgs = (function() {
     queueNewTabFocusTimer(tabId, windowId, focusedTab);
 
     //test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (focusedTab.url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
-    }
+    // if (focusedTab.url === 'chrome://extensions/shortcuts') {
+    //   _triggerHotkeyUpdate = true;
+    // }
 
     let discardAfterSuspend = gsStorage.getOption(
       gsStorage.DISCARD_AFTER_SUSPEND,

@@ -157,8 +157,7 @@ var gsUtils = {
     if (
       url.indexOf('about') === 0 ||
       url.indexOf('chrome') === 0 ||
-      // webstore urls no longer seem to crash the extension :D
-      // url.indexOf('chrome.google.com/webstore') >= 0 ||
+      url.indexOf('moz-extension') === 0 ||
       gsUtils.isBlockedFileTab(tab)
     ) {
       return true;
@@ -193,7 +192,7 @@ var gsUtils = {
     }
     const url = gsUtils.getTabUrl(tab);
     var isLocalExtensionPage =
-      url.indexOf('chrome-extension://' + chrome.runtime.id) === 0;
+      url.indexOf('moz-extension://' + chrome.runtime.id) === 0;
     return isLocalExtensionPage && !gsUtils.isSuspendedTab(tab);
   },
 

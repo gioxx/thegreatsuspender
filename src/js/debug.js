@@ -116,7 +116,7 @@
       }
     };
 
-    var extensionsUrl = `chrome://extensions/?id=${chrome.runtime.id}`;
+    var extensionsUrl = `about:devtools-toolbox?type=extension&id=${chrome.runtime.id}`;
     document
       .getElementById('backgroundPage')
       .setAttribute('href', extensionsUrl);
@@ -136,4 +136,8 @@
         });
         */
   });
+
+  window.onload = function() {
+    document.getElementById('inspect-url').innerHTML = `about:devtools-toolbox?type=extension&id=${chrome.runtime.id}`;
+  }
 })(this);
