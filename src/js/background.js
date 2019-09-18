@@ -1281,10 +1281,10 @@ var tgs = (function() {
       return;
     }
     //check if it is a blockedFile tab (this needs to have precedence over isSpecialTab)
-    if (gsUtils.isBlockedFileTab(tab)) {
-      callback(gsUtils.STATUS_BLOCKED_FILE);
-      return;
-    }
+    // if (gsUtils.isBlockedFileTab(tab)) {
+    //   callback(gsUtils.STATUS_BLOCKED_FILE);
+    //   return;
+    // }
     //check if it is a special tab
     if (gsUtils.isSpecialTab(tab)) {
       callback(gsUtils.STATUS_SPECIAL);
