@@ -31,6 +31,7 @@ var tgs = (function() {
   const STATE_SET_AUTODISCARDABLE = 'setAutodiscardable';
   const STATE_SUSPEND_REASON = 'suspendReason'; // 1=auto-suspend, 2=manual-suspend, 3=discarded
   const STATE_SCROLL_POS = 'scrollPos';
+  const STATE_IS_UNSUSPENDING = 'currentlyUnsuspending';
 
   const focusDelay = 500;
 
@@ -616,6 +617,9 @@ var tgs = (function() {
       if (tab.autoDiscardable) {
         setTabStatePropForTabId(tab.id, tgs.STATE_SET_AUTODISCARDABLE, tab.url);
       }
+      // Handle conсurrency issue when checker trashes reloading tab
+      // Significant in Firefox as tabs goes to about:blank instead of originalUrl
+      setTabStatePropForTabId(tab.id, tgs.STATE_IS_UNSUSPENDING, true);
       // NOTE: Temporarily disable autoDiscardable, as there seems to be a bug
       // where discarded (and frozen?) suspended tabs will not unsuspend with
       // chrome.tabs.update if this is set to true. This gets unset again after tab
@@ -1557,6 +1561,7 @@ var tgs = (function() {
     if (request.action === 'reportTabState') {
       var contentScriptStatus =
         request && request.status ? request.status : null;
+
       if (
         contentScriptStatus === 'formInput' ||
         contentScriptStatus === 'tempWhitelist'
@@ -1565,6 +1570,7 @@ var tgs = (function() {
       } else if (!sender.tab.autoDiscardable) {
         chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
       }
+
       // If tab is currently visible then update popup icon
       if (sender.tab && isCurrentFocusedTab(sender.tab)) {
         calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
