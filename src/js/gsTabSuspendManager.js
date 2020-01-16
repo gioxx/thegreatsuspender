@@ -152,7 +152,7 @@ var gsTabSuspendManager = (function() {
         QUEUE_ID,
         'Tab is not responding. Will reload for screen capture.',
       );
-      await gsChrome.tabsUpdate(tab.id, { url: tab.url });
+      await gsChrome.tabsUpdate(tab.id, { url: tab.url, loadReplace: true });
       // allow up to 30 seconds for tab to reload and trigger its subsequent suspension request
       // note that this will not reset the DEFAULT_SUSPENSION_TIMEOUT of 60 seconds
       requeue(30000, { reloaded: true });
@@ -327,7 +327,7 @@ var gsTabSuspendManager = (function() {
         tgs.STATE_INITIALISE_SUSPENDED_TAB,
         true,
       );
-      gsChrome.tabsUpdate(tab.id, { url: suspendedUrl }).then(updatedTab => {
+      gsChrome.tabsUpdate(tab.id, { url: suspendedUrl, loadReplace: true }).then(updatedTab => {
         resolve(updatedTab !== null);
       });
     });

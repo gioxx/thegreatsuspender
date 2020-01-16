@@ -626,7 +626,7 @@ var tgs = (function() {
       // has reloaded via the STATE_SET_AUTODISCARDABLE flag.
       gsUtils.log(tab.id, 'Unsuspending tab via chrome.tabs.update');
       // autoDiscardable is not supported in Firefox
-      chrome.tabs.update(tab.id, { url: originalUrl/*, autoDiscardable: false */});
+      chrome.tabs.update(tab.id, { url: originalUrl, loadReplace: true});
       return;
     }
 
@@ -797,13 +797,11 @@ var tgs = (function() {
       const latestVisit = visits.pop();
       const previousVisit = visits.pop();
       if (previousVisit) {
-        chrome.history.deleteRange(
+        browser.history.deleteRange(
           {
             // Firefox does not accept floats here
             startTime: previousVisit.visitTime - 1,
             endTime: previousVisit.visitTime + 1,
-          },
-          () => {
           },
         );
       }
