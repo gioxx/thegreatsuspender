@@ -5265,7 +5265,7 @@
                     }
                 });
             }); });
-            documentClone.open();
+            documentClone.wrappedJSObject.open();
             documentClone.write(serializeDoctype(document.doctype) + "<html></html>");
             // Chrome scrolls the parent document for some reason after the write to the cloned window???
             restoreOwnerScroll(this.referenceElement.ownerDocument, scrollX, scrollY);
