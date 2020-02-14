@@ -12,6 +12,8 @@
     "cookies",
     "http://*/*",
     "https://*/*",
+    "<all_urls>",
+    "activeTab",
     "file://*/*"
   ],
   "background": {
