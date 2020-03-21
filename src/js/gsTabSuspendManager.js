@@ -303,6 +303,10 @@ var gsTabSuspendManager = (function() {
       let discardInPlaceOfSuspend = gsStorage.getOption(
         gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
       );
+      if (tab.cookieStoreId != "firefox-default") {
+        gsUtils.log("Tab uses non-default container " + tab.cookieStoreId)
+        discardInPlaceOfSuspend = true;
+      }
       if (discardInPlaceOfSuspend) {
         tgs.clearAutoSuspendTimerForTabId(tab.id);
         gsTabDiscardManager.queueTabForDiscard(tab);
