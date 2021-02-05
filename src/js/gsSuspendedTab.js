@@ -213,7 +213,8 @@ var gsSuspendedTab = (function() {
       const previewEl = _document.createElement('div');
       const bodyEl = _document.getElementsByTagName('body')[0];
       previewEl.setAttribute('id', 'gsPreviewContainer');
-      previewEl.classList.add('gsPreviewContainer', 'blurPreview');
+      previewEl.classList.add('gsPreviewContainer');
+      alert(gsStorage.getOption(SCREEN_CAPTURE_BLUR));
       previewEl.innerHTML = _document.getElementById(
         'previewTemplate'
       ).innerHTML;

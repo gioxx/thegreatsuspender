@@ -4,6 +4,7 @@
 var gsStorage = {
   SCREEN_CAPTURE: 'screenCapture',
   SCREEN_CAPTURE_FORCE: 'screenCaptureForce',
+  SCREEN_CAPTURE_BLUR: 'screenCaptureBlur',
   SUSPEND_IN_PLACE_OF_DISCARD: 'suspendInPlaceOfDiscard',
   UNSUSPEND_ON_FOCUS: 'gsUnsuspendOnFocus',
   SUSPEND_TIME: 'gsTimeToSuspend',
@@ -39,6 +40,7 @@ var gsStorage = {
     const defaults = {};
     defaults[gsStorage.SCREEN_CAPTURE] = '0';
     defaults[gsStorage.SCREEN_CAPTURE_FORCE] = false;
+    defaults[gsStorage.SCREEN_CAPTURE_BLUR] = false;
     defaults[gsStorage.SUSPEND_IN_PLACE_OF_DISCARD] = false;
     defaults[gsStorage.DISCARD_IN_PLACE_OF_SUSPEND] = false;
     defaults[gsStorage.USE_ALT_SCREEN_CAPTURE_LIB] = false;

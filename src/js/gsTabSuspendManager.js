@@ -16,6 +16,9 @@ var gsTabSuspendManager = (function() {
       const forceScreenCapture = gsStorage.getOption(
         gsStorage.SCREEN_CAPTURE_FORCE
       );
+      const blurScreenCapture = gsStorage.getOption(
+        gsStorage.SCREEN_CAPTURE_BLUR
+      );
       //TODO: This should probably update when the screencapture mode changes
       const concurrentSuspensions =
         screenCaptureMode === '0' ? 5 : DEFAULT_CONCURRENT_SUSPENSIONS;
