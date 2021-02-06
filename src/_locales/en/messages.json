@@ -106,6 +106,7 @@
     "html_options_suspend_force_screen_capture_tooltip_line5": { "message": "- Maximum height of screen capture limited to 5000px" },
     "html_options_suspend_force_screen_capture_tooltip_line6": { "message": "Enabling high quality screen capture mode may significantly increase CPU load" },
     "html_options_suspend_force_screen_capture_tooltip_line7": { "message": "and memory usage." },
+    "html_options_suspend_blur_screen_capture": { "message": "Blur preview image" },
     "html_options_whitelist_title": { "message": "Never suspend tabs with URLs from the following list:" },
     "html_options_whitelist_tooltip_line1": { "message": "Add the URL of each page you want to whitelist on a new line. For example:" },
     "html_options_whitelist_tooltip_line2": { "message": "To whitelist multiple sites in one line you can specify part of the url instead:" },

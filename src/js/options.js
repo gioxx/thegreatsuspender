@@ -10,6 +10,7 @@
   var elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
+    blurScreenCapture: gsStorage.SCREEN_CAPTURE_BLUR,
     suspendInPlaceOfDiscard: gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
     onlineCheck: gsStorage.IGNORE_WHEN_OFFLINE,
     batteryCheck: gsStorage.IGNORE_WHEN_CHARGING,
@@ -103,8 +104,12 @@
     if (visible) {
       document.getElementById('forceScreenCaptureContainer').style.display =
         'block';
+      document.getElementById('blurScreenCaptureContainer').style.display = 
+        'block';
     } else {
       document.getElementById('forceScreenCaptureContainer').style.display =
+        'none';
+      document.getElementById('blurScreenCaptureContainer').style.display =
         'none';
     }
   }
