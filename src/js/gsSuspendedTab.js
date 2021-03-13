@@ -42,12 +42,14 @@ var gsSuspendedTab = (function() {
 
     // Set imagePreview
     const previewMode = options[gsStorage.SCREEN_CAPTURE];
+    const isImageBlured = options[gsStorage.SCREEN_CAPTURE_BLUR];
     const previewUri = await getPreviewUri(suspendedUrl);
     await toggleImagePreviewVisibility(
       tabView.document,
       tab,
       previewMode,
-      previewUri
+      previewUri,
+      isImageBlured,
     );
 
     // Set theme
@@ -103,13 +105,14 @@ var gsSuspendedTab = (function() {
     setTheme(tabView.document, theme, isLowContrastFavicon);
   }
 
-  async function updatePreviewMode(tabView, tab, previewMode) {
+  async function updatePreviewMode(tabView, tab, previewMode, useBlur) {
     const previewUri = await getPreviewUri(tab.url);
     await toggleImagePreviewVisibility(
       tabView.document,
       tab,
       previewMode,
-      previewUri
+      previewUri,
+      useBlur,
     );
 
     const scrollPosition = gsUtils.getSuspendedScrollPosition(tab.url);
@@ -208,13 +211,12 @@ var gsSuspendedTab = (function() {
     return previewUri;
   }
 
-  function buildImagePreview(_document, tab, previewUri) {
+  function buildImagePreview(_document, tab, previewUri, useBlur) {
     return new Promise(resolve => {
       const previewEl = _document.createElement('div');
       const bodyEl = _document.getElementsByTagName('body')[0];
       previewEl.setAttribute('id', 'gsPreviewContainer');
       previewEl.classList.add('gsPreviewContainer');
-      alert(gsStorage.getOption(SCREEN_CAPTURE_BLUR));
       previewEl.innerHTML = _document.getElementById(
         'previewTemplate'
       ).innerHTML;
@@ -245,35 +247,45 @@ var gsSuspendedTab = (function() {
     _document,
     tab,
     previewMode,
-    previewUri
+    previewUri,
+    useBlur,
   ) {
-    const builtImagePreview =
-      _document.getElementById('gsPreviewContainer') !== null;
+    let previewContainer = _document.getElementById('gsPreviewContainer');
+    const builtImagePreview = previewContainer !== null;
+
     if (
       !builtImagePreview &&
       previewUri &&
       previewMode &&
       previewMode !== '0'
     ) {
-      await buildImagePreview(_document, tab, previewUri);
+      await buildImagePreview(_document, tab, previewUri, useBlur);
     } else {
       addWatermarkHandler(_document);
     }
 
-    if (!_document.getElementById('gsPreviewContainer')) {
+    previewContainer = _document.getElementById('gsPreviewContainer')
+
+    if (!previewContainer) {
       return;
     }
     const overflow = previewMode === '2' ? 'auto' : 'hidden';
     _document.body.style['overflow'] = overflow;
 
     if (previewMode === '0' || !previewUri) {
-      _document.getElementById('gsPreviewContainer').style.display = 'none';
+      previewContainer.style.display = 'none';
       _document.getElementById('suspendedMsg').style.display = 'flex';
       _document.body.classList.remove('img-preview-mode');
     } else {
-      _document.getElementById('gsPreviewContainer').style.display = 'block';
+      previewContainer.style.display = 'block';
       _document.getElementById('suspendedMsg').style.display = 'none';
       _document.body.classList.add('img-preview-mode');
+    }
+
+    if (useBlur) {
+      previewContainer.classList.add('blured');
+    } else {
+      previewContainer.classList.remove('blured');
     }
   }
 
