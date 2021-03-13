@@ -91,17 +91,9 @@ body.suspended-page:not(.img-preview-mode) {
     top: 0;
     left: 0;
     padding: 30px 40px 20px;
+    width: 100%;
     text-align: center;
     z-index: 101;
-    margin: 80px;
-    -webkit-box-shadow: 0px 0px 10px 10px #fafafa;
-    -moz-box-shadow: 0px 0px 10px 10px #fafafa;
-    box-shadow: 0px 0px 10px 10px #fafafa;
-}
-.dark .gsTopBar {
-    -webkit-box-shadow: 0px 0px 10px 10px #222;
-    -moz-box-shadow: 0px 0px 10px 10px #222;
-    box-shadow: 0px 0px 10px 10px #222;
 }
 .faviconWrap {
     display: inline-block;
@@ -143,13 +135,20 @@ body.suspended-page:not(.img-preview-mode) {
     margin: 0 auto;
     padding: 30px 0;
 }
-.gsPreviewContainer.blurPreview {
+.gsPreviewContainer.blured {
     position: absolute;
-    width: 100%;
     top: 0;
+    bottom: 0;
     left: 0;
+    right: 0;
+    z-index: 0;
+    width: 100%;
     padding: 0;
-    margin: 0px;
+    overflow: hidden;
+    filter: contrast(.5) brightness(0.8) blur(6px);
+}
+.dark .gsPreviewContainer.blured {
+    filter: contrast(.5) brightness(0.5) blur(6px);
 }
 .gsPreviewImg {
     display: block;
@@ -160,25 +159,19 @@ body.suspended-page:not(.img-preview-mode) {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     transition: all 0.2s ease;
 }
-.blurPreview>.gsPreviewImg {
-    position: absolute;
-    min-width: calc(100% + 20px);
-    min-height: calc(100% + 20px);
-    left: -10px;
-    top: -10px;
-    margin: 0px;
-    border-radius: 0px;
-    filter: contrast(.5) brightness(0.8) blur(6px);
+.gsPreviewContainer.blured .gsPreviewImg {
+    width: 100%;
+    box-shadow: none;
 }
 .gsPreviewImg:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+.gsPreviewContainer.blured .gsPreviewImg:hover {
+    box-shadow: none;
+}
 .dark .gsPreviewImg {
     filter: brightness(70%);
     opacity: 0.7;
-}
-.dark .blurPreview>.gsPreviewImg {
-    filter: contrast(.5) brightness(.5) blur(6px);
 }
 .dark .gsPreviewImg:hover {
     opacity: 1;

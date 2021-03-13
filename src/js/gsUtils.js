@@ -635,9 +635,10 @@ var gsUtils = {
 
           //if theme or screenshot preferences have changed then refresh suspended tabs
           const updateTheme = changedSettingKeys.includes(gsStorage.THEME);
-          const updatePreviewMode = changedSettingKeys.includes(
-            gsStorage.SCREEN_CAPTURE
-          );
+          const updatePreviewMode = changedSettingKeys.some(key => [
+            gsStorage.SCREEN_CAPTURE,
+            gsStorage.SCREEN_CAPTURE_BLUR,
+          ].includes(key));
           if (updateTheme || updatePreviewMode) {
             const suspendedView = tgs.getInternalViewByTabId(tab.id);
             if (suspendedView) {
@@ -657,10 +658,14 @@ var gsUtils = {
                 const previewMode = gsStorage.getOption(
                   gsStorage.SCREEN_CAPTURE
                 );
+                const useBlur = gsStorage.getOption(
+                  gsStorage.SCREEN_CAPTURE_BLUR
+                );
                 gsSuspendedTab.updatePreviewMode(
                   suspendedView,
                   tab,
-                  previewMode
+                  previewMode,
+                  useBlur,
                 ); // async. unhandled promise.
               }
             }
