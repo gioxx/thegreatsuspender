@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "e utilizzo della memoria."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "Non sospendere mai le schede contenenti i seguenti indirizzi:"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "Aggiungi l'indirizzo di ogni pagina che desideri inserire nella lista bianca, uno per riga. Per esempio:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "Per autorizzare più siti in una riga puoi invece specificare una parte dell'indirizzo:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "Puoi anche usare le espressioni regolari racchiudendo il testo tra due slash:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "Verifica il funzionamento della lista bianca"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "Ricarica scheda"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "Non sospendere mai"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,11 +641,11 @@
     "js_popup_suspended_pause": {
         "message": "Non sospendere"
     },
-    "js_popup_whitelisted": {
-        "message": "Sito inserito nella whitelist."
+    "js_popup_allowlisted": {
+        "message": "Sito inserito nella allowlist."
     },
-    "js_popup_whitelisted_remove": {
-        "message": "Rimuovi dalla whitelist"
+    "js_popup_allowlisted_remove": {
+        "message": "Rimuovi dalla allowlist"
     },
     "js_popup_audible": {
         "message": "La tab sta riproducendo audio."
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "La scheda è stata fissata"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "Sospensione della scheda disattivata."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "Riprendi"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "Rimuovi sito dalla lista bianca"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "Sei in modalità incognito. Molte impostazioni non saranno disponibili."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "Non ci sono schede aperte che corrispondono all'attuale lista bianca."
     },
-    "js_options_whitelist_matches_heading": {
-        "message": "Tab aperte in whitelist:"
+    "js_options_allowlist_matches_heading": {
+        "message": "Tab aperte in allowlist:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "e"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "altro."
     },
     "js_permissions_button_export": {

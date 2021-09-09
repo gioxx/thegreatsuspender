@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "нагрузку на процессор и потребление памяти."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "Никогда не приостанавливать вкладки с URL-адресами из следующего списка:"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "Добавьте URL-адрес каждой страницы, которую Вы хотите добавить в белый список, например:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "Чтобы не перечислять несколько сайтов, Вы можете указать совпадающую часть URL:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "Вы также можете использовать регулярные выражения, используя в тексте косые черты:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "Протестировать белый список"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "Обновить вкладку"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "Никогда не приостанавливать"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "Не приостанавливать"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "Сайт добавлен в белый список."
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "Удалить из белого списка"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "Вкладка закреплена"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "Приостановка вкладки поставлена на паузу."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "Снять с паузы"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "Удалить сайт из белого списка"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "Вы находитесь в режиме инкогнито. Некоторые функции будут недоступны."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "Нет открытых вкладок, подходящих под текущий белый список."
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "Открытые вкладки, подходящие под текущий белый список:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "и"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "ещё."
     },
     "js_permissions_button_export": {

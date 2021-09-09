@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "und den Speicherverbrauch erhöhen."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "Tabs mit URL aus der Ausnahmeliste nicht aussetzen:"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "Füge die URL jeder Seite, die zugelassen werden soll in eine eigene Zeile. Zum Beispiel:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "Um mehrere Seiten in einer Zeile zuzulassen, kannst du stattdessen einen Teil der URL angeben:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "Du kannst auch reguläre Ausdrücke verwenden, wenn der Text von Schrägstrichen eingeschlossen ist:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "Zulässige Seiten testen"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "Tab neu laden"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "Nicht aussetzen"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "Nicht aussetzen"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "Seite zur Ausnahmeliste hinzugefügt."
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "Von Ausnahmeliste entfernen"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "Tab wurde gepinnt"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "Aussetzen pausiert."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "Fortführen"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "Seite aus Ausnahmeliste entfernen"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "Du bist im Inkognitomodus. Einige Funktionen sind nicht verfügbar."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "Es sind keine offenen Seiten vorhanden, die den aktuell zulässigen Seiten entsprechen."
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "Erlaubte offene Seiten:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "und"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "weitere."
     },
     "js_permissions_button_export": {

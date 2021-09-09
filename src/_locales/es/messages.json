@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "and memory usage."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "Never suspend tabs with URLs from the following list:"
     },
-    "html_options_whitelist_tooltip_line1": {
-        "message": "Add the URL of each page you want to whitelist on a new line. For example:"
+    "html_options_allowlist_tooltip_line1": {
+        "message": "Add the URL of each page you want to allowlist on a new line. For example:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "Para incluir múltiples sitios en una línea, puede especificar parte de la url en su lugar:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "También puede especificar expresiones regulares adjuntando el texto en las barras delanteras:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "Probar lista blanca"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "Reload tab"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "Never suspend"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,11 +641,11 @@
     "js_popup_suspended_pause": {
         "message": "Don't suspend"
     },
-    "js_popup_whitelisted": {
-        "message": "Site whitelisted."
+    "js_popup_allowlisted": {
+        "message": "Site allowlisted."
     },
-    "js_popup_whitelisted_remove": {
-        "message": "Remove from whitelist"
+    "js_popup_allowlisted_remove": {
+        "message": "Remove from allowlist"
     },
     "js_popup_audible": {
         "message": "Tab is playing audio."
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "Tab has been pinned"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "Tab suspension paused."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "Unpause"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "Eliminar sitio de la lista blanca"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "Está en modo incógnito. Algunas características no estarán disponibles."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "No hay pestañas abiertas que coincidan con la lista blanca actual."
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "Pestañas abiertas de la lista blanca:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "y"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "más."
     },
     "js_permissions_button_export": {

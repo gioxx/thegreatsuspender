@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "ve bellek kullanımı."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "Aşağıdaki listede bulunan URL adreslerine askıya al yapma:"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "Beyaz listeye eklemek istediğiniz her sayfanın URL'sini yeni bir satıra ekleyin. Örneğin:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "Tek bir satırda birden fazla siteyi beyaz listeye almak için URL’nin bir bölümünü belirleyebilirsiniz:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "Ayrıca, slash vb. ekleyerek de düzenli ifadeler belirleyebilirsiniz:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "Beyaz liste test"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "Sekmeyi Yeniden Yükle"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "Askıya Alma Yapma"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "Askı Duraklatıldı"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "Site beyaz listede."
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "Beyaz listeden kaldır"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "Sekme sabit"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "Sekme askı durumu duraklatıldı."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "Devam Et"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "Bu web sitesini beyaz listeden kaldır"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "Gizli moddasınız. Bazı özellikler kullanılamayacak."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "Mevcut beyaz listeyle eşleşen açık sekme yok."
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "Sekme beyaz listesi:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "ve"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "dahası."
     },
     "js_permissions_button_export": {

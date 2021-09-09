@@ -19,7 +19,7 @@ var gsStorage = {
   SYNC_SETTINGS: 'gsSyncSettings',
   NO_NAG: 'gsNoNag',
   THEME: 'gsTheme',
-  WHITELIST: 'gsWhitelist',
+  ALLOWLIST: 'gsAllowlist',
 
   DISCARD_AFTER_SUSPEND: 'discardAfterSuspend',
   DISCARD_IN_PLACE_OF_SUSPEND: 'discardInPlaceOfSuspend',
@@ -53,7 +53,7 @@ var gsStorage = {
     defaults[gsStorage.SYNC_SETTINGS] = true;
     defaults[gsStorage.SUSPEND_TIME] = '60';
     defaults[gsStorage.NO_NAG] = false;
-    defaults[gsStorage.WHITELIST] = '';
+    defaults[gsStorage.ALLOWLIST] = '';
     defaults[gsStorage.THEME] = 'light';
     defaults[gsStorage.UPDATE_AVAILABLE] = false; //Set to true for debug
 

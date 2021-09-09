@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "and memory usage."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "白名单"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "在每一行上添加要列入白名单的每个页面的 URL。例如:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "要在一行中将多个网站列入白名单，可以指定 URL 的一部分:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "您还可以通过正则表达式将 URL 添加白名单:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "测试白名单"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "重新加载标签页"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "永远不要冻结"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "暂时不要冻结"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "白名单。"
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "从白名单移除"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "标签页已经被固定"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "页面冻结暂停。"
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "取消暂停"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "从白名单移除"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "您现在处于无痕模式。某些功能将无法使用。"
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "没有与当前白单匹配的打开标签页。"
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "这些打开标签页签符合当前白名单："
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "和另外"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "个。"
     },
     "js_permissions_button_export": {

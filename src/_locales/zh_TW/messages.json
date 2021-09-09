@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "和記憶體使用量明顯提高。"
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "白名單"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "在新的一列上新增要列入白名單的每個分頁的 URL。例如："
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "要在一列中將多個網站列入白名單，可以指定網址的一部分："
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "您還可以使用斜線包起來的文字來指定正規表示式："
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "測試白名單"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "重新載入"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "永遠不要凍結"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "暫時不要凍結"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "例外清單。"
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "從例外清單移除"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "分頁已經被固定"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "分頁凍結暫停。"
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "取消暫停"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "從白名單移除"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "你目前使用隱私模式。某些功能將無法使用。"
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "沒有與當前白名單匹配的打開選項卡。"
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "這些打開的選項卡與當前白名單相匹配："
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "和另外"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "個。"
     },
     "js_permissions_button_export": {

@@ -350,19 +350,19 @@
     "html_options_suspend_force_screen_capture_tooltip_line7": {
         "message": "و استخدام الذاكرة."
     },
-    "html_options_whitelist_title": {
+    "html_options_allowlist_title": {
         "message": "لا تعلق أبداً علامات التبويب مع عناوين URL من القائمة التالية:"
     },
-    "html_options_whitelist_tooltip_line1": {
+    "html_options_allowlist_tooltip_line1": {
         "message": "إضافة عنوان URL لكل صفحة تريد القائمة البيضاء على سطر جديد. على سبيل المثال:"
     },
-    "html_options_whitelist_tooltip_line2": {
+    "html_options_allowlist_tooltip_line2": {
         "message": "لقائمة بيضاء متعددة المواقع في سطر واحد يمكنك تحديد جزء من url بدلاً من ذلك:"
     },
-    "html_options_whitelist_tooltip_line3": {
+    "html_options_allowlist_tooltip_line3": {
         "message": "يمكنك أيضا تحديد التعبيرات العادية عن طريق إرفاق النص في الخطوط الأمامية:"
     },
-    "html_options_whitelist_test": {
+    "html_options_allowlist_test": {
         "message": "اختبار القائمة البيضاء"
     },
     "html_options_other_enable_context_menu": {
@@ -530,10 +530,10 @@
     "html_suspended_tab_reload": {
         "message": "أعد تحميل الصفحة"
     },
-    "html_suspended_tab_whitelist_prefix": {
+    "html_suspended_tab_allowlist_prefix": {
         "message": "لا تعلق مطلقاً"
     },
-    "html_suspended_tab_whitelist_suffix": {
+    "html_suspended_tab_allowlist_suffix": {
         "message": "..."
     },
     "html_suspended_click_to_reload": {
@@ -641,10 +641,10 @@
     "js_popup_suspended_pause": {
         "message": "عدم التعليق"
     },
-    "js_popup_whitelisted": {
+    "js_popup_allowlisted": {
         "message": "قائمة بيضاء بالموقع."
     },
-    "js_popup_whitelisted_remove": {
+    "js_popup_allowlisted_remove": {
         "message": "إزالة من القائمة البيضاء"
     },
     "js_popup_audible": {
@@ -659,10 +659,10 @@
     "js_popup_pinned": {
         "message": "تم تثبيت علامة التبويب"
     },
-    "js_popup_temp_whitelist": {
+    "js_popup_temp_allowlist": {
         "message": "تعليق علامة التبويب مؤقتاً."
     },
-    "js_popup_temp_whitelist_unpause": {
+    "js_popup_temp_allowlist_unpause": {
         "message": "إلغاء الإيقاف المؤقت"
     },
     "js_popup_never": {
@@ -739,7 +739,7 @@
             }
         }
     },
-    "js_suspended_remove_from_whitelist": {
+    "js_suspended_remove_from_allowlist": {
         "message": "إزالة الموقع من القائمة البيضاء"
     },
     "js_suspended_hotkey_to_reload": {
@@ -751,16 +751,16 @@
     "js_options_incognito_warning": {
         "message": "أنت في وضع التخفي. بعض الميزات لن تكون متاحة."
     },
-    "js_options_whitelist_no_matches": {
+    "js_options_allowlist_no_matches": {
         "message": "لا توجد علامات تبويب مفتوحة تتطابق مع القائمة البيضاء الحالية."
     },
-    "js_options_whitelist_matches_heading": {
+    "js_options_allowlist_matches_heading": {
         "message": "علامات التبويب المفتوحة في القائمة البيضاء:"
     },
-    "js_options_whitelist_matches_overflow_prefix": {
+    "js_options_allowlist_matches_overflow_prefix": {
         "message": "و"
     },
-    "js_options_whitelist_matches_overflow_suffix": {
+    "js_options_allowlist_matches_overflow_suffix": {
         "message": "المزيد."
     },
     "js_permissions_button_export": {
