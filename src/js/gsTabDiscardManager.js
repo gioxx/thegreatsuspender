@@ -1,6 +1,6 @@
 /*global chrome, localStorage, tgs, gsUtils, gsChrome, GsTabQueue, gsStorage, gsTabSuspendManager */
 // eslint-disable-next-line no-unused-vars
-var gsTabDiscardManager = (function() {
+const gsTabDiscardManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_DISCARDS = 5;
@@ -28,7 +28,7 @@ var gsTabDiscardManager = (function() {
     queueTabForDiscardAsPromise(tab, executionProps, processingDelay).catch(
       e => {
         gsUtils.log(tab.id, QUEUE_ID, e);
-      }
+      },
     );
   }
 
@@ -38,7 +38,7 @@ var gsTabDiscardManager = (function() {
     return _discardQueue.queueTabAsPromise(
       tab,
       executionProps,
-      processingDelay
+      processingDelay,
     );
   }
 
@@ -62,7 +62,7 @@ var gsTabDiscardManager = (function() {
       gsUtils.warning(
         tab.id,
         QUEUE_ID,
-        `Failed to discard tab. Tab may have already been discarded or removed.`
+        `Failed to discard tab. Tab may have already been discarded or removed.`,
       );
       resolve(false);
       return;
@@ -76,7 +76,7 @@ var gsTabDiscardManager = (function() {
     }
     if (tgs.isCurrentActiveTab(tab)) {
       const discardInPlaceOfSuspend = gsStorage.getOption(
-        gsStorage.DISCARD_IN_PLACE_OF_SUSPEND
+        gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
       );
       if (!discardInPlaceOfSuspend) {
         gsUtils.log(tab.id, QUEUE_ID, 'Tab is active. Aborting discard.');
@@ -105,13 +105,11 @@ var gsTabDiscardManager = (function() {
     executionProps,
     exceptionType,
     resolve,
-    reject,
-    requeue
   ) {
     gsUtils.warning(
       tab.id,
       QUEUE_ID,
-      `Failed to discard tab: ${exceptionType}`
+      `Failed to discard tab: ${exceptionType}`,
     );
     resolve(false);
   }
@@ -127,7 +125,6 @@ var gsTabDiscardManager = (function() {
 
       // Note: This bypasses the suspension tab queue and also prevents screenshots from being taken
       await gsTabSuspendManager.executeTabSuspension(tab, suspendedUrl);
-      return;
     }
   }
 

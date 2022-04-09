@@ -7,7 +7,7 @@
     return;
   }
 
-  var elementPrefMap = {
+  const elementPrefMap = {
     preview: gsStorage.SCREEN_CAPTURE,
     forceScreenCapture: gsStorage.SCREEN_CAPTURE_FORCE,
     suspendInPlaceOfDiscard: gsStorage.SUSPEND_IN_PLACE_OF_DISCARD,
@@ -30,7 +30,7 @@
 
 
   function selectComboBox(element, key) {
-    var i, child;
+    let i, child;
 
     for (i = 0; i < element.children.length; i += 1) {
       child = element.children[i];
@@ -46,7 +46,7 @@
     //Set theme
     document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
 
-    var optionEls = document.getElementsByClassName('option'),
+    let optionEls = document.getElementsByClassName('option'),
       pref,
       element,
       i;
@@ -159,7 +159,7 @@
 
   function handleChange(element) {
     return function() {
-      var pref = elementPrefMap[element.id],
+      let pref = elementPrefMap[element.id],
         interval;
 
       //add specific screen element listeners
@@ -178,9 +178,9 @@
         window.location.reload();
       }
 
-      var [oldValue, newValue] = saveChange(element);
+      let [oldValue, newValue] = saveChange(element);
       if (oldValue !== newValue) {
-        var prefKey = elementPrefMap[element.id];
+        let prefKey = elementPrefMap[element.id];
         gsUtils.performPostSaveUpdates(
           [prefKey],
           { [prefKey]: oldValue },
@@ -191,7 +191,7 @@
   }
 
   function saveChange(element) {
-    var pref = elementPrefMap[element.id],
+    let pref = elementPrefMap[element.id],
       oldValue = gsStorage.getOption(pref),
       newValue = getOptionValue(element);
 
@@ -211,7 +211,7 @@
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
     initSettings();
 
-    var optionEls = document.getElementsByClassName('option'),
+    let optionEls = document.getElementsByClassName('option'),
       element,
       i;
 
@@ -275,7 +275,5 @@
   });
 
 
-  global.exports = {
-    initSettings,
-  };
+  global.exports = {};
 })(this);

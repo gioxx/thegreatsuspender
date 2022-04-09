@@ -15,11 +15,6 @@
       .addEventListener('click', function() {
         chrome.runtime.reload();
       });
-    document
-      .getElementById('sessionManagementLink')
-      .addEventListener('click', function() {
-        chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
-      });
   }
   if (document.readyState !== 'loading') {
     init();

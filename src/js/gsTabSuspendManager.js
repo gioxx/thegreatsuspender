@@ -1,6 +1,6 @@
-/*global html2canvas, domtoimage, tgs, gsFavicon, gsMessages, gsStorage, gsUtils, gsChrome, gsIndexedDb, gsTabDiscardManager, gsTabCheckManager, GsTabQueue */
+/*global html2canvas, tgs, gsFavicon, gsMessages, gsStorage, gsUtils, gsChrome, gsIndexedDb, gsTabDiscardManager, gsTabCheckManager, GsTabQueue */
 // eslint-disable-next-line no-unused-vars
-var gsTabSuspendManager = (function() {
+const gsTabSuspendManager = (function() {
   'use strict';
 
   const DEFAULT_CONCURRENT_SUSPENSIONS = 3;
@@ -169,21 +169,14 @@ var gsTabSuspendManager = (function() {
       executionProps.forceLevel,
     );
     if (!isEligible) {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        `Content script status of ${
-          tabInfo.status
-        } not eligible for suspension. Removing tab from suspensionQueue.`,
-      );
+      gsUtils.log(tab.id, QUEUE_ID, `Content script status of ${tabInfo.status} not eligible for suspension. Removing tab from suspensionQueue.`);
       resolve(false);
       return;
     }
 
     // Temporarily change tab.url to append youtube timestamp
-    const timestampedUrl = await generateUrlWithYouTubeTimestamp(tab);
     // NOTE: This does not actually change the tab url, just the current tab object
-    tab.url = timestampedUrl;
+    tab.url = await generateUrlWithYouTubeTimestamp(tab);
     await saveSuspendData(tab);
 
     const suspendedUrl = gsUtils.generateSuspendedUrl(
@@ -214,47 +207,28 @@ var gsTabSuspendManager = (function() {
   async function handlePreviewImageResponse(tab, previewUrl, errorMsg) {
     const queuedTabDetails = getQueuedTabDetails(tab);
     if (!queuedTabDetails) {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        'Tab missing from suspensionQueue. Assuming suspension cancelled for this tab.',
-      );
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab missing from suspensionQueue. Assuming suspension cancelled for this tab.');
       return;
     }
 
     const suspensionForceLevel = queuedTabDetails.executionProps.forceLevel;
     if (!checkTabEligibilityForSuspension(tab, suspensionForceLevel)) {
-      gsUtils.log(
-        tab.id,
-        QUEUE_ID,
-        'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.',
-      );
+      gsUtils.log(tab.id, QUEUE_ID, 'Tab is no longer eligible for suspension. Removing tab from suspensionQueue.');
       return;
     }
 
     // Temporarily change tab.url with that from the generated suspended url
     // This is because for youtube tabs we manually change the url to persist timestamp
-    const timestampedUrl = gsUtils.getOriginalUrl(
-      queuedTabDetails.executionProps.suspendedUrl,
-    );
     // NOTE: This does not actually change the tab url, just the current tab object
-    tab.url = timestampedUrl;
+    tab.url = gsUtils.getOriginalUrl(queuedTabDetails.executionProps.suspendedUrl);
 
     if (!previewUrl) {
-      gsUtils.warning(
-        tab.id,
-        QUEUE_ID,
-        'savePreviewData reported an error: ',
-        errorMsg,
-      );
+      gsUtils.warning(tab.id, QUEUE_ID, 'savePreviewData reported an error: ', errorMsg);
     } else {
       await gsIndexedDb.addPreviewImage(tab.url, previewUrl);
     }
 
-    const success = await executeTabSuspension(
-      tab,
-      queuedTabDetails.executionProps.suspendedUrl,
-    );
+    const success = await executeTabSuspension(tab, queuedTabDetails.executionProps.suspendedUrl);
     queuedTabDetails.executionProps.resolveFn(success);
   }
 
@@ -267,8 +241,6 @@ var gsTabSuspendManager = (function() {
     executionProps,
     exceptionType,
     resolve,
-    reject,
-    requeue,
   ) {
     if (exceptionType === _suspensionQueue.EXCEPTION_TIMEOUT) {
       gsUtils.log(
@@ -381,14 +353,9 @@ var gsTabSuspendManager = (function() {
     contentScriptStatus,
     forceLevel,
   ) {
-    if (
-      forceLevel >= 2 &&
+    return !(forceLevel >= 2 &&
       (contentScriptStatus === gsUtils.STATUS_FORMINPUT ||
-        contentScriptStatus === gsUtils.STATUS_TEMPWHITELIST)
-    ) {
-      return false;
-    }
-    return true;
+        contentScriptStatus === gsUtils.STATUS_TEMPWHITELIST));
   }
 
   function getContentScriptTabInfo(tab) {
@@ -447,8 +414,7 @@ var gsTabSuspendManager = (function() {
     const videoEl = document.querySelector(
       'video.video-stream.html5-main-video',
     );
-    const timestamp = videoEl ? videoEl.currentTime >> 0 : 0;
-    return timestamp;
+    return videoEl ? videoEl.currentTime >> 0 : 0;
   }
 
   async function saveSuspendData(tab) {
@@ -497,7 +463,6 @@ var gsTabSuspendManager = (function() {
               null,
               'Failed to executeCodeOnTab: generatePreviewImgContentScript',
             ); //async. unhandled promise.
-            return;
           }
         },
       );
@@ -604,10 +569,8 @@ var gsTabSuspendManager = (function() {
   return {
     initAsPromised,
     queueTabForSuspension,
-    queueTabForSuspensionAsPromise,
     unqueueTabForSuspension,
     handlePreviewImageResponse,
-    saveSuspendData,
     checkTabEligibilityForSuspension,
     executeTabSuspension,
     getQueuedTabDetails,

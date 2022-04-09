@@ -2,44 +2,44 @@
 <html>
 
 <head>
-  <link type="text/css" href="css/style.css" rel="stylesheet">
-  <link type="text/css" href="css/debug.css" rel="stylesheet">
-  <script type="text/javascript" src="js/debug.js"></script>
+  <link type='text/css' href='css/style.css' rel='stylesheet'>
+  <link type='text/css' href='css/debug.css' rel='stylesheet'>
+  <script type='text/javascript' src='js/debug.js'></script>
   <title id='gsTitle'>The Marvellous Suspender - Debugger</title>
 </head>
 
 <body hidden>
-  <div>
-    <span>debugErrors: </span>
-    <a id='toggleDebugError' href='#'></a> &nbsp;|&nbsp;
-    <span>debugInfo: </span>
-    <a id='toggleDebugInfo' href='#'></a> &nbsp;|&nbsp;
-    <span>discardInPlaceOfSuspend: </span>
-    <a id='toggleDiscardInPlaceOfSuspend' href='#'></a> &nbsp;|&nbsp;
-    <a id='claimSuspendedTabs' href='#'>claim all suspended tabs</a>
-  </div>
+<div>
+  <span>debugErrors: </span>
+  <a id='toggleDebugError' href='#'></a> &nbsp;|&nbsp;
+  <span>debugInfo: </span>
+  <a id='toggleDebugInfo' href='#'></a> &nbsp;|&nbsp;
+  <span>discardInPlaceOfSuspend: </span>
+  <a id='toggleDiscardInPlaceOfSuspend' href='#'></a> &nbsp;|&nbsp;
+  <a id='claimSuspendedTabs' href='#'>claim all suspended tabs</a>
+</div>
+<br />
+<div>
+  <span>To view debug messages, go to the <a id='backgroundPage' target='_blank'>chrome extensions page.</a></span>
   <br />
-  <div>
-    <span>To view debug messages, go to the <a id="backgroundPage" target="_blank">chrome extensions page.</a></span>
-    <br />
-    <span>Ensure "developer mode" is checked at the top of the page, then click on the "Inspect views: background page" link for this extension.</span>
-  </div>
+  <span>Ensure "developer mode" is checked at the top of the page, then click on the "Inspect views: background page" link for this extension.</span>
+</div>
 
-  <hr />
-  <table id="gsProfiler">
-    <thead>
-      <tr>
-        <th>WinId</th>
-        <th>TabId</th>
-        <th>Index</th>
-        <th></th>
-        <th>Title</th>
-        <th>Time to suspend</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="gsProfilerBody"></tbody>
-  </table>
+<hr />
+<table id='gsProfiler'>
+  <thead>
+  <tr>
+    <th>WinId</th>
+    <th>TabId</th>
+    <th>Index</th>
+    <th></th>
+    <th>Title</th>
+    <th>Time to suspend</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody id='gsProfilerBody'></tbody>
+</table>
 </body>
 
 </html>

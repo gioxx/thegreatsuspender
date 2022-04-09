@@ -13,11 +13,11 @@
     //Set theme
     document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
 
-    var shortcutsEl = document.getElementById('keyboardShortcuts');
-    var configureShortcutsEl = document.getElementById('configureShortcuts');
+    let shortcutsEl = document.getElementById('keyboardShortcuts');
+    let configureShortcutsEl = document.getElementById('configureShortcuts');
 
-    var notSetMessage = chrome.i18n.getMessage('js_shortcuts_not_set');
-    var groupingKeys = [
+    let notSetMessage = chrome.i18n.getMessage('js_shortcuts_not_set');
+    let groupingKeys = [
       '2-toggle-temp-whitelist-tab',
       '2b-unsuspend-selected-tabs',
       '4-unsuspend-active-window',
@@ -31,19 +31,19 @@
             command.shortcut !== ''
               ? gsUtils.formatHotkeyString(command.shortcut)
               : '(' + notSetMessage + ')';
-          var addMarginBottom = groupingKeys.includes(command.name);
+          let addMarginBottom = groupingKeys.includes(command.name);
           shortcutsEl.innerHTML += `<div ${
             addMarginBottom ? ' class="bottomMargin"' : ''
           }>${command.description}</div>
-            <div class="${
-              command.shortcut ? 'hotkeyCommand' : 'lesserText'
-            }">${shortcut}</div>`;
+            <div class='${
+            command.shortcut ? 'hotkeyCommand' : 'lesserText'
+          }'>${shortcut}</div>`;
         }
       });
     });
 
     //listener for configureShortcuts
-    configureShortcutsEl.onclick = function(e) {
+    configureShortcutsEl.onclick = function() {
       chrome.tabs.update({ url: 'chrome://extensions/shortcuts' });
     };
   });

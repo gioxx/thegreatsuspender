@@ -9,15 +9,15 @@
     return;
   }
 
-  var currentTabs = {};
+  let currentTabs = {};
 
   function generateTabInfo(info) {
     // console.log(info.tabId, info);
-    var timerStr =
+    let timerStr =
       info && info.timerUp && info && info.timerUp !== '-'
         ? new Date(info.timerUp).toLocaleString()
         : '-';
-    var html = '',
+    let html = '',
       windowId = info && info.windowId ? info.windowId : '?',
       tabId = info && info.tabId ? info.tabId : '?',
       tabIndex = info && info.tab ? info.tab.index : '?',
@@ -60,7 +60,7 @@
     }
     const debugInfos = await Promise.all(debugInfoPromises);
     for (const debugInfo of debugInfos) {
-      var html,
+      let html,
         tableEl = document.getElementById('gsProfilerBody');
       html = generateTabInfo(debugInfo);
       tableEl.innerHTML = tableEl.innerHTML + html;
@@ -69,10 +69,10 @@
 
   function addFlagHtml(elementId, getterFn, setterFn) {
     document.getElementById(elementId).innerHTML = getterFn();
-    document.getElementById(elementId).onclick = function(e) {
+    document.getElementById(elementId).onclick = function() {
       const newVal = !getterFn();
       setterFn(newVal);
-      document.getElementById(elementId).innerHTML = newVal;
+      document.getElementById(elementId).innerHTML = newVal.toString();
     };
   }
 
@@ -100,7 +100,7 @@
         );
       }
     );
-    document.getElementById('claimSuspendedTabs').onclick = async function(e) {
+    document.getElementById('claimSuspendedTabs').onclick = async function() {
       const tabs = await gsChrome.tabsQuery();
       for (const tab of tabs) {
         if (
@@ -116,7 +116,7 @@
       }
     };
 
-    var extensionsUrl = `chrome://extensions/?id=${chrome.runtime.id}`;
+    let extensionsUrl = `chrome://extensions/?id=${chrome.runtime.id}`;
     document
       .getElementById('backgroundPage')
       .setAttribute('href', extensionsUrl);

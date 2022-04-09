@@ -1,6 +1,6 @@
-/*global chrome, localStorage, tgs, gsStorage, gsIndexedDb, gsUtils, gsChrome, gsTabCheckManager, gsTabDiscardManager */
+/*global chrome, localStorage, tgs, gsStorage, gsIndexedDb, gsUtils, gsChrome, gsTabCheckManager */
 // eslint-disable-next-line no-unused-vars
-var gsSession = (function() {
+const gsSession = (function() {
   'use strict';
 
   const tabsToRestorePerSecond = 12;
@@ -16,7 +16,6 @@ var gsSession = (function() {
 
   let startupTabCheckTimeTakenInSeconds;
   let startupRecoveryTimeTakenInSeconds;
-  let startupType;
   let startupLastVersion;
   let syncedSettingsOnInit;
 
@@ -124,22 +123,6 @@ var gsSession = (function() {
     return fileUrlsAccessAllowed;
   }
 
-  function getTabCheckTimeTakenInSeconds() {
-    return startupTabCheckTimeTakenInSeconds;
-  }
-
-  function getRecoveryTimeTakenInSeconds() {
-    return startupRecoveryTimeTakenInSeconds;
-  }
-
-  function getStartupType() {
-    return startupType;
-  }
-
-  function getStartupLastVersion() {
-    return startupLastVersion;
-  }
-
   function getUpdateType() {
     return updateType;
   }
@@ -162,18 +145,14 @@ var gsSession = (function() {
 
     if (chrome.extension.inIncognitoContext) {
       // do nothing if in incognito context
-      startupType = 'Incognito';
     } else if (startupLastVersion === curVersion) {
       gsUtils.log('gsSession', 'HANDLING NORMAL STARTUP');
-      startupType = 'Restart';
-      await handleNormalStartup(currentSessionTabs, curVersion);
+      await handleNormalStartup(currentSessionTabs);
     } else if (!startupLastVersion || startupLastVersion === '0.0.0') {
       gsUtils.log('gsSession', 'HANDLING NEW INSTALL');
-      startupType = 'Install';
       await handleNewInstall(curVersion);
     } else {
       gsUtils.log('gsSession', 'HANDLING UPDATE');
-      startupType = 'Update';
       await handleUpdate(currentSessionTabs, curVersion, startupLastVersion);
     }
 
@@ -231,7 +210,7 @@ var gsSession = (function() {
     );
   }
 
-  async function handleNormalStartup(currentSessionTabs, curVersion) {
+  async function handleNormalStartup(currentSessionTabs) {
     const shouldRecoverTabs = await checkForCrashRecovery(currentSessionTabs);
     if (shouldRecoverTabs) {
       const lastExtensionRecoveryTimestamp = gsStorage.fetchLastExtensionRecoveryTimestamp();
@@ -331,21 +310,6 @@ var gsSession = (function() {
       updated = true;
       await gsChrome.tabsCreate({ url: updatedUrl });
     }
-  }
-
-  // This function is used only for testing
-  async function triggerDiscardOfAllTabs() {
-    await new Promise(resolve => {
-      chrome.tabs.query({ active: false, discarded: false }, function(tabs) {
-        for (let i = 0; i < tabs.length; ++i) {
-          if (tabs[i] === undefined || gsUtils.isSpecialTab(tabs[i])) {
-            continue;
-          }
-          gsTabDiscardManager.queueTabForDiscard(tabs[i]);
-        }
-        resolve();
-      });
-    });
   }
 
   async function checkForCrashRecovery(currentSessionTabs) {
@@ -777,15 +741,8 @@ var gsSession = (function() {
     isInitialising,
     isUpdated,
     isFileUrlsAccessAllowed,
-    getTabCheckTimeTakenInSeconds,
-    getRecoveryTimeTakenInSeconds,
-    getStartupType,
     setSynchedSettingsOnInit,
-    getStartupLastVersion,
     recoverLostTabs,
-    triggerDiscardOfAllTabs,
-    restoreSessionWindow,
-    prepareForUpdate,
     getUpdateType,
     unsuspendActiveTabInEachWindow,
   };

@@ -14,7 +14,7 @@
   let isIgnoreForms = false;
   let tempWhitelist = false;
 
-  function formInputListener(e) {
+  function formInputListener() {
     if (!isReceivingFormInput && !tempWhitelist) {
       if (event.keyCode >= 48 && event.keyCode <= 90 && event.target.tagName) {
         if (
@@ -98,7 +98,7 @@
 
   function isBackgroundConnectable() {
     try {
-      var port = chrome.runtime.connect();
+      let port = chrome.runtime.connect();
       if (port) {
         port.disconnect();
         return true;

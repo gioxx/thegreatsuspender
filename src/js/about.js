@@ -13,7 +13,7 @@
     //Set theme
     document.body.classList.add(gsStorage.getOption(gsStorage.THEME) === 'dark' ? 'dark' : null);
 
-    var versionEl = document.getElementById('aboutVersion');
+    let versionEl = document.getElementById('aboutVersion');
     versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;
 
     //hide incompatible sidebar items if in incognito mode

@@ -9,8 +9,8 @@
     return;
   }
 
-  var restoreAttempted = false;
-  var tabsToRecover = [];
+  let restoreAttempted = false;
+  let tabsToRecover = [];
 
   async function getRecoverableTabs(currentTabs) {
     const lastSession = await gsIndexedDb.fetchLastSession();
@@ -20,7 +20,7 @@
       for (const window of lastSession.windows) {
         for (const tabProperties of window.tabs) {
           if (gsUtils.isSuspendedTab(tabProperties)) {
-            var originalUrl = gsUtils.getOriginalUrl(tabProperties.url);
+            let originalUrl = gsUtils.getOriginalUrl(tabProperties.url);
             // Ignore suspended tabs from previous session that exist unsuspended now
             const originalTab = currentTabs.find(o => o.url === originalUrl);
             if (!originalTab) {
@@ -39,7 +39,7 @@
     const recoveryTabsEl = document.getElementById('recoveryTabs');
     const childLinks = recoveryTabsEl.children;
 
-    for (var i = 0; i < childLinks.length; i++) {
+    for (let i = 0; i < childLinks.length; i++) {
       const element = childLinks[i];
       const url = tabToRemove.url || tabToRemove.pendingUrl;
       const originalUrl = gsUtils.isSuspendedUrl(url)
@@ -48,7 +48,7 @@
 
       if (
         element.getAttribute('data-url') === originalUrl ||
-        element.getAttribute('data-tabId') == tabToRemove.id
+        element.getAttribute('data-tabId') === tabToRemove.id
       ) {
         // eslint-disable-line eqeqeq
         recoveryTabsEl.removeChild(element);
@@ -75,41 +75,35 @@
   }
 
   function showTabSpinners() {
-    var recoveryTabsEl = document.getElementById('recoveryTabs'),
+    let recoveryTabsEl = document.getElementById('recoveryTabs'),
       childLinks = recoveryTabsEl.children;
 
-    for (var i = 0; i < childLinks.length; i++) {
-      var tabContainerEl = childLinks[i];
+    for (let i = 0; i < childLinks.length; i++) {
+      let tabContainerEl = childLinks[i];
       tabContainerEl.removeChild(tabContainerEl.firstChild);
-      var spinnerEl = document.createElement('span');
+      let spinnerEl = document.createElement('span');
       spinnerEl.classList.add('faviconSpinner');
       tabContainerEl.insertBefore(spinnerEl, tabContainerEl.firstChild);
     }
   }
 
   function hideRecoverySection() {
-    var recoverySectionEls = document.getElementsByClassName('recoverySection');
-    for (var i = 0; i < recoverySectionEls.length; i++) {
+    let recoverySectionEls = document.getElementsByClassName('recoverySection');
+    for (let i = 0; i < recoverySectionEls.length; i++) {
       recoverySectionEls[i].style.display = 'none';
     }
     document.getElementById('restoreSession').style.display = 'none';
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(async function() {
-    var restoreEl = document.getElementById('restoreSession'),
-      manageEl = document.getElementById('manageManuallyLink'),
+    let restoreEl = document.getElementById('restoreSession'),
       previewsEl = document.getElementById('previewsOffBtn'),
       recoveryEl = document.getElementById('recoveryTabs'),
       warningEl = document.getElementById('screenCaptureNotice'),
       tabEl;
 
-    manageEl.onclick = function(e) {
-      e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
-    };
-
     if (previewsEl) {
-      previewsEl.onclick = function(e) {
+      previewsEl.onclick = function() {
         gsStorage.setOptionAndSync(gsStorage.SCREEN_CAPTURE, '0');
         window.location.reload();
       };
@@ -120,7 +114,7 @@
       }
     }
 
-    var performRestore = async function() {
+    let performRestore = async function() {
       restoreAttempted = true;
       restoreEl.className += ' btnDisabled';
       restoreEl.removeEventListener('click', performRestore);
@@ -140,7 +134,7 @@
       return;
     }
 
-    for (var tabToRecover of tabsToRecover) {
+    for (let tabToRecover of tabsToRecover) {
       tabToRecover.title = gsUtils.getCleanTabTitle(tabToRecover);
       tabToRecover.url = gsUtils.getOriginalUrl(tabToRecover.url);
       tabEl = await historyItems.createTabHtml(tabToRecover, false);
@@ -154,8 +148,8 @@
       recoveryEl.appendChild(tabEl);
     }
 
-    var currentSuspendedTabs = currentTabs.filter(o =>
-      gsUtils.isSuspendedTab(o)
+    let currentSuspendedTabs = currentTabs.filter(o =>
+      gsUtils.isSuspendedTab(o),
     );
     for (const suspendedTab of currentSuspendedTabs) {
       gsMessages.sendPingToTab(suspendedTab.id, function(error) {
@@ -168,7 +162,5 @@
     }
   });
 
-  global.exports = {
-    removeTabFromList,
-  };
+  global.exports = {};
 })(this);

@@ -4,10 +4,10 @@ body {
 }
 
 td {
-    max-width:700px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    max-width: 700px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 img {

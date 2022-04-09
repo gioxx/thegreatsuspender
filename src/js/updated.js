@@ -18,12 +18,7 @@
     // var versionEl = document.getElementById('updatedVersion');
     // versionEl.innerHTML = 'v' + chrome.runtime.getManifest().version;
 
-    document.getElementById('sessionManagerLink').onclick = function(e) {
-      e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
-    };
-
-    var updateType = gsSession.getUpdateType();
+    let updateType = gsSession.getUpdateType();
     if (updateType === 'major') {
       document.getElementById('patchMessage').style.display = 'none';
       document.getElementById('minorUpdateDetail').style.display = 'none';
@@ -39,7 +34,5 @@
     }
   });
 
-  global.exports = {
-    toggleUpdated,
-  };
+  global.exports = {};
 })(this);

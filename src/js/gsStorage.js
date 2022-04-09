@@ -1,7 +1,7 @@
 /*global chrome, gsSession, localStorage, gsUtils */
 'use strict';
 
-var gsStorage = {
+const gsStorage = {
   SCREEN_CAPTURE: 'screenCapture',
   SCREEN_CAPTURE_FORCE: 'screenCaptureForce',
   SUSPEND_IN_PLACE_OF_DISCARD: 'suspendInPlaceOfDiscard',
@@ -29,9 +29,6 @@ var gsStorage = {
   LAST_EXTENSION_RECOVERY: 'gsExtensionRecovery',
 
   UPDATE_AVAILABLE: 'gsUpdateAvailable',
-
-  noop: function() {
-  },
 
   getSettingsDefaults: function() {
     const defaults = {};
@@ -67,13 +64,13 @@ var gsStorage = {
   //populate localstorage settings with sync settings where undefined
   initSettingsAsPromised: function() {
     return new Promise(function(resolve) {
-      var defaultSettings = gsStorage.getSettingsDefaults();
-      var defaultKeys = Object.keys(defaultSettings);
+      let defaultSettings = gsStorage.getSettingsDefaults();
+      let defaultKeys = Object.keys(defaultSettings);
       chrome.storage.sync.get(defaultKeys, function(syncedSettings) {
         gsUtils.log('gsStorage', 'syncedSettings on init: ', syncedSettings);
         gsSession.setSynchedSettingsOnInit(syncedSettings);
 
-        var rawLocalSettings;
+        let rawLocalSettings;
         try {
           rawLocalSettings = JSON.parse(localStorage.getItem('gsSettings'));
         } catch (e) {
@@ -92,9 +89,9 @@ var gsStorage = {
             rawLocalSettings[gsStorage.SYNC_SETTINGS] || false;
         }
         gsUtils.log('gsStorage', 'localSettings on init: ', rawLocalSettings);
-        var shouldSyncSettings = rawLocalSettings[gsStorage.SYNC_SETTINGS];
+        let shouldSyncSettings = rawLocalSettings[gsStorage.SYNC_SETTINGS];
 
-        var mergedSettings = {};
+        let mergedSettings = {};
         for (const key of defaultKeys) {
           if (key === gsStorage.SYNC_SETTINGS) {
             if (chrome.extension.inIncognitoContext) {
@@ -144,7 +141,7 @@ var gsStorage = {
         gsUtils.log('gsStorage', 'mergedSettings: ', mergedSettings);
 
         // if any of the new settings are different to those in sync, then trigger a resync
-        var triggerResync = false;
+        let triggerResync = false;
         for (const key of defaultKeys) {
           if (
             key !== gsStorage.SYNC_SETTINGS &&
@@ -169,14 +166,14 @@ var gsStorage = {
       if (namespace !== 'sync' || !remoteSettings) {
         return;
       }
-      var shouldSync = gsStorage.getOption(gsStorage.SYNC_SETTINGS);
+      let shouldSync = gsStorage.getOption(gsStorage.SYNC_SETTINGS);
       if (shouldSync) {
-        var localSettings = gsStorage.getSettings();
-        var changedSettingKeys = [];
-        var oldValueBySettingKey = {};
-        var newValueBySettingKey = {};
+        let localSettings = gsStorage.getSettings();
+        let changedSettingKeys = [];
+        let oldValueBySettingKey = {};
+        let newValueBySettingKey = {};
         Object.keys(remoteSettings).forEach(function(key) {
-          var remoteSetting = remoteSettings[key];
+          let remoteSetting = remoteSettings[key];
 
           // If nags are disabled locally, then ensure we disable them on synced profile
           if (key === gsStorage.NO_NAG) {
@@ -214,7 +211,7 @@ var gsStorage = {
   //due to migration issues and new settings being added, i have built in some redundancy
   //here so that getOption will always return a valid value.
   getOption: function(prop) {
-    var settings = gsStorage.getSettings();
+    let settings = gsStorage.getSettings();
     if (typeof settings[prop] === 'undefined' || settings[prop] === null) {
       settings[prop] = gsStorage.getSettingsDefaults()[prop];
       gsStorage.saveSettings(settings);
@@ -223,7 +220,7 @@ var gsStorage = {
   },
 
   setOption: function(prop, value) {
-    var settings = gsStorage.getSettings();
+    let settings = gsStorage.getSettings();
     settings[prop] = value;
     // gsUtils.log('gsStorage', 'gsStorage', 'setting prop: ' + prop + ' to value ' + value);
     gsStorage.saveSettings(settings);
@@ -239,7 +236,7 @@ var gsStorage = {
   },
 
   getSettings: function() {
-    var settings;
+    let settings;
     try {
       settings = JSON.parse(localStorage.getItem('gsSettings'));
     } catch (e) {
@@ -270,7 +267,7 @@ var gsStorage = {
 
   // Push settings to sync
   syncSettings: function() {
-    var settings = gsStorage.getSettings();
+    let settings = gsStorage.getSettings();
     if (settings[gsStorage.SYNC_SETTINGS]) {
       // Since sync is a local setting, delete it to simplify things.
       delete settings[gsStorage.SYNC_SETTINGS];
@@ -293,7 +290,7 @@ var gsStorage = {
   },
 
   fetchLastVersion: function() {
-    var version;
+    let version;
     try {
       version = JSON.parse(localStorage.getItem(gsStorage.APP_VERSION));
     } catch (e) {
@@ -332,7 +329,7 @@ var gsStorage = {
   },
 
   fetchLastExtensionRecoveryTimestamp: function() {
-    var lastExtensionRecoveryTimestamp;
+    let lastExtensionRecoveryTimestamp;
     try {
       lastExtensionRecoveryTimestamp = JSON.parse(
         localStorage.getItem(gsStorage.LAST_EXTENSION_RECOVERY),

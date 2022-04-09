@@ -15,15 +15,18 @@ body {
     min-height: 100%;
     font-size: 10px;
 }
+
 html {
     box-sizing: border-box;
     height: 100vh;
 }
+
 *,
 *::before,
 *::after {
     box-sizing: inherit;
 }
+
 body {
     min-height: 100%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -34,34 +37,42 @@ body {
     background: #fafafa;
     color: #444;
 }
+
 @media (min-resolution: 192dpi) {
     body {
         font-weight: 300;
     }
 }
+
 h1 {
     font-size: 26px;
     margin-bottom: 20px;
 }
+
 p {
     margin: 0 0 15px;
 }
+
 a {
     color: #3477db;
     text-decoration: none;
     cursor: pointer;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 a.active {
     cursor: default;
     color: #444;
     pointer-events: none;
 }
+
 body.hide-initially {
     display: none !important;
 }
+
 body.suspended-page:not(.img-preview-mode) {
     display: flex;
     align-items: center;
@@ -73,6 +84,7 @@ body.suspended-page:not(.img-preview-mode) {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
 .watermark {
     display: none; /* show only if not image preview mode */
     position: absolute;
@@ -82,9 +94,11 @@ body.suspended-page:not(.img-preview-mode) {
     color: #b6b6b6;
     cursor: pointer;
 }
+
 .suspended-page:not(.img-preview-mode) .watermark {
     display: block;
 }
+
 .gsTopBar {
     position: fixed;
     background: #fafafa;
@@ -95,29 +109,35 @@ body.suspended-page:not(.img-preview-mode) {
     text-align: center;
     z-index: 101;
 }
+
 .faviconWrap {
     display: inline-block;
     vertical-align: bottom;
     margin-bottom: -1px;
     margin-right: 10px;
 }
+
 .dark .faviconWrapLowContrast {
     filter: invert(1) grayscale(1);
 }
+
 .gsTopBarImg {
     height: 16px;
     width: 16px;
 }
+
 .gsTopBarTitle {
     color: #444;
     font-size: 20px;
     cursor: default;
 }
+
 .gsTopBarUrl {
     color: #444;
     cursor: pointer;
     padding: 0 20px;
 }
+
 .gsTopBarUrl,
 .gsTopBarTitleWrap {
     max-width: 100%;
@@ -127,14 +147,17 @@ body.suspended-page:not(.img-preview-mode) {
     display: inline-block;
     margin-bottom: 8px;
 }
+
 .hideOverflow {
     overflow: hidden;
 }
+
 .gsPreviewContainer {
     width: 90%;
     margin: 0 auto;
     padding: 30px 0;
 }
+
 .gsPreviewImg {
     display: block;
     max-width: 100%;
@@ -144,22 +167,28 @@ body.suspended-page:not(.img-preview-mode) {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     transition: all 0.2s ease;
 }
+
 .gsPreviewImg:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+
 .dark .gsPreviewImg {
     filter: brightness(70%);
     opacity: 0.7;
 }
+
 .dark .gsPreviewImg:hover {
     opacity: 1;
 }
+
 body.img-preview-mode .gsTopBar {
     position: relative;
 }
+
 .suspended-page {
     cursor: pointer;
 }
+
 .suspendedMsg {
     width: 100vw;
     height: 100vh;
@@ -170,20 +199,25 @@ body.img-preview-mode .gsTopBar {
     flex-direction: column;
     text-align: center;
 }
+
 .hotkeyCommand {
     word-spacing: -1px;
 }
+
 .reasonMsg {
     font-size: 15px;
     margin-bottom: 25px;
 }
+
 .suspendedMsg img {
     height: 180px;
     margin-bottom: 30px;
 }
+
 .suspendedMsg-instr {
     font-size: 20px;
 }
+
 .suspendedMsg-shortcut {
     font-size: 15px;
 }
@@ -204,9 +238,11 @@ body.img-preview-mode .gsTopBar {
     animation: spinner 0.6s linear infinite;
     z-index: 100;
 }
+
 .snoozyWrapper {
     position: relative;
 }
+
 #snoozySpinner.spinner:before {
     border: 2px solid transparent;
     border-right-color: #4a4a4a;
@@ -220,12 +256,15 @@ body.img-preview-mode .gsTopBar {
     width: 12px;
     height: 12px;
 }
+
 .suspendedTextWrap {
     height: 60px; /* stops slight jump when suspending */
 }
+
 .waking .suspendedTextWrap {
     opacity: 0;
 }
+
 @keyframes spinner {
     to {
         transform: rotate(360deg);
@@ -238,9 +277,11 @@ body.img-preview-mode .gsTopBar {
 .dark .suspendedMsg {
     background: #222;
 }
+
 .dark .suspendedMsg img {
     filter: brightness(150%);
 }
+
 .dark .gsTopBar,
 .dark .gsTopBarTitle,
 .dark .gsTopBar a,
@@ -248,6 +289,7 @@ body.img-preview-mode .gsTopBar {
 .dark .watermark {
     color: #b8b8b8;
 }
+
 .dark #setKeyboardShortcut {
     text-decoration: underline;
     color: #b8b8b8;
@@ -267,6 +309,7 @@ body.img-preview-mode .gsTopBar {
     opacity: 0;
     animation: fadeinout 4s linear forwards;
 }
+
 .toast-content {
     display: inline-block;
     position: relative;

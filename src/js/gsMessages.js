@@ -1,6 +1,6 @@
 /*global gsUtils, gsStorage */
 // eslint-disable-next-line no-unused-vars
-var gsMessages = {
+const gsMessages = {
   INFO: 'info',
   WARNING: 'warning',
   ERROR: 'error',
@@ -10,9 +10,9 @@ var gsMessages = {
     ignoreForms,
     tempWhitelist,
     scrollPos,
-    callback
+    callback,
   ) {
-    var payload = {
+    let payload = {
       ignoreForms: ignoreForms,
       tempWhitelist: tempWhitelist,
     };
@@ -23,7 +23,7 @@ var gsMessages = {
       tabId,
       payload,
       gsMessages.ERROR,
-      callback
+      callback,
     );
   },
 
@@ -40,7 +40,7 @@ var gsMessages = {
     gsMessages.sendMessageToContentScript(
       tab.id,
       { ignoreForms },
-      gsMessages.WARNING
+      gsMessages.WARNING,
     );
   },
 
@@ -51,7 +51,7 @@ var gsMessages = {
         tempWhitelist: true,
       },
       gsMessages.WARNING,
-      callback
+      callback,
     );
   },
 
@@ -62,7 +62,7 @@ var gsMessages = {
         tempWhitelist: false,
       },
       gsMessages.WARNING,
-      callback
+      callback,
     );
   },
 
@@ -73,14 +73,14 @@ var gsMessages = {
         action: 'requestInfo',
       },
       gsMessages.WARNING,
-      callback
+      callback,
     );
   },
 
   sendMessageToContentScript: function(tabId, message, severity, callback) {
     gsMessages.sendMessageToTab(tabId, message, severity, function(
       error,
-      response
+      response,
     ) {
       if (error) {
         if (callback) callback(error);
@@ -97,7 +97,7 @@ var gsMessages = {
         action: 'ping',
       },
       gsMessages.INFO,
-      callback
+      callback,
     );
   },
 
@@ -106,7 +106,7 @@ var gsMessages = {
       if (callback) callback('tabId not specified');
       return;
     }
-    var responseHandler = function(response) {
+    let responseHandler = function(response) {
       gsUtils.log(tabId, 'response from tab', response);
       if (chrome.runtime.lastError) {
         if (callback) callback(chrome.runtime.lastError);

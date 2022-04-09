@@ -1,4 +1,4 @@
-/*global chrome, historyUtils, gsSession, gsIndexedDb, gsUtils */
+/*global chrome, gsSession, gsIndexedDb, gsUtils */
 (function(global) {
   'use strict';
 
@@ -9,23 +9,17 @@
     return;
   }
 
-  function setRestartExtensionClickHandler(warnFirst) {
-    document.getElementById('restartExtensionBtn').onclick = async function(e) {
-      // var result = true;
-      // if (warnFirst) {
-      //   result = window.confirm(chrome.i18n.getMessage('js_update_confirm'));
-      // }
-      // if (result) {
-
+  function setRestartExtensionClickHandler() {
+    document.getElementById('restartExtensionBtn').onclick = async function() {
       document.getElementById('restartExtensionBtn').className += ' btnDisabled';
       document.getElementById('restartExtensionBtn').onclick = null;
 
       const currentSession = await gsSession.buildCurrentSession();
       if (currentSession) {
-        var currentVersion = chrome.runtime.getManifest().version;
+        let currentVersion = chrome.runtime.getManifest().version;
         await gsIndexedDb.createOrUpdateSessionRestorePoint(
           currentSession,
-          currentVersion
+          currentVersion,
         );
       }
 
@@ -41,37 +35,17 @@
     };
   }
 
-  function setExportBackupClickHandler() {
-    document.getElementById('exportBackupBtn').onclick = async function(e) {
-      const currentSession = await gsSession.buildCurrentSession();
-      historyUtils.exportSession(currentSession, function() {
-        document.getElementById('exportBackupBtn').style.display = 'none';
-        setRestartExtensionClickHandler(false);
-      });
-    };
-  }
-
-  function setSessionManagerClickHandler() {
-    document.getElementById('sessionManagerLink').onclick = function(e) {
-      e.preventDefault();
-      chrome.tabs.create({ url: chrome.extension.getURL('history.html') });
-      setRestartExtensionClickHandler(false);
-    };
-  }
-
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    setSessionManagerClickHandler();
     setRestartExtensionClickHandler(true);
-    setExportBackupClickHandler();
 
-    var currentVersion = chrome.runtime.getManifest().version;
+    let currentVersion = chrome.runtime.getManifest().version;
     gsIndexedDb
       .fetchSessionRestorePoint(currentVersion)
       .then(function(sessionRestorePoint) {
         if (!sessionRestorePoint) {
           gsUtils.warning(
             'update',
-            'Couldnt find session restore point. Something has gone horribly wrong!!'
+            'Couldnt find session restore point. Something has gone horribly wrong!!',
           );
           document.getElementById('noBackupInfo').style.display = 'block';
           document.getElementById('backupInfo').style.display = 'none';

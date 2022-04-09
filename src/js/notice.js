@@ -10,13 +10,13 @@
   }
 
   gsUtils.documentReadyAndLocalisedAsPromised(document).then(function() {
-    var notice = tgs.requestNotice();
+    let notice = tgs.requestNotice();
     if (
       notice &&
       notice.hasOwnProperty('text') &&
       notice.hasOwnProperty('version')
     ) {
-      var noticeContentEl = document.getElementById('gsNotice');
+      let noticeContentEl = document.getElementById('gsNotice');
       noticeContentEl.innerHTML = notice.text;
       //update local notice version
       gsStorage.setNoticeVersion(notice.version);

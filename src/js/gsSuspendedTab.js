@@ -1,6 +1,6 @@
 /*global tgs, gsFavicon, gsStorage, gsSession, gsUtils, gsIndexedDb, gsChrome, chrome */
 // eslint-disable-next-line no-unused-vars
-var gsSuspendedTab = (function() {
+const gsSuspendedTab = (function() {
   'use strict';
 
   async function initTab(tab, tabView, { quickInit }) {
@@ -153,7 +153,7 @@ var gsSuspendedTab = (function() {
   }
 
   function setGoToUpdateHandler(_document) {
-    _document.getElementById('gotoUpdatePage').onclick = async function(e) {
+    _document.getElementById('gotoUpdatePage').onclick = async function() {
       await gsChrome.tabsCreate(chrome.extension.getURL('update.html'));
     };
   }
@@ -211,9 +211,7 @@ var gsSuspendedTab = (function() {
     let previewUri = null;
     if (
       preview &&
-      preview.img &&
-      preview.img !== null &&
-      preview.img !== 'data:,' &&
+      preview.img && preview.img !== 'data:,' &&
       preview.img.length > 10000
     ) {
       previewUri = preview.img;
@@ -230,8 +228,7 @@ var gsSuspendedTab = (function() {
       previewEl.innerHTML = _document.getElementById(
         'previewTemplate',
       ).innerHTML;
-      const unsuspendTabHandler = buildUnsuspendTabHandler(_document, tab);
-      previewEl.onclick = unsuspendTabHandler;
+      previewEl.onclick = buildUnsuspendTabHandler(_document, tab);
       gsUtils.localiseHtml(previewEl);
       bodyEl.appendChild(previewEl);
 
@@ -275,8 +272,7 @@ var gsSuspendedTab = (function() {
     if (!_document.getElementById('gsPreviewContainer')) {
       return;
     }
-    const overflow = previewMode === '2' ? 'auto' : 'hidden';
-    _document.body.style['overflow'] = overflow;
+    _document.body.style['overflow'] = previewMode === '2' ? 'auto' : 'hidden';
 
     if (previewMode === '0' || !previewUri) {
       _document.getElementById('gsPreviewContainer').style.display = 'none';
@@ -309,7 +305,7 @@ var gsSuspendedTab = (function() {
     // if the tab is refreshed, then on reload the url will match and the tab will unsuspend
     // if the url is changed then on reload the url will not match
     // if the tab is closed, the reload will never occur
-    _window.addEventListener('beforeunload', function(e) {
+    _window.addEventListener('beforeunload', function() {
       gsUtils.log(tab.id, 'BeforeUnload triggered: ' + tab.url);
       if (tgs.isCurrentFocusedTab(tab)) {
         tgs.setTabStatePropForTabId(tab.id, tgs.STATE_UNLOADED_URL, tab.url);

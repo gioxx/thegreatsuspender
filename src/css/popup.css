@@ -10,76 +10,88 @@
 */
 html,
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
+
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
+
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
-  color: #444;
-  padding: 0;
-  margin: 0;
-  min-width: 325px;
-  position: relative;
-  font-size: 15px;
-  background: #fff;
+    color: #444;
+    padding: 0;
+    margin: 0;
+    min-width: 325px;
+    position: relative;
+    font-size: 15px;
+    background: #fff;
 }
+
 @media (min-resolution: 192dpi) {
-  body {
-    font-weight: 300;
-  }
+    body {
+        font-weight: 300;
+    }
 }
 
 a {
-  outline: none;
-  color: #3477db;
+    outline: none;
+    color: #3477db;
 }
+
 #statusDetail a {
-  color: #ffffff;
+    color: #ffffff;
 }
+
 #header {
-  padding: 15px;
-  background: #777;
-  color: #fff;
+    padding: 15px;
+    background: #777;
+    color: #fff;
 }
+
 #header.willSuspend {
-  background: #3477db;
+    background: #3477db;
 }
+
 #header.blockedFile {
     background: #a70707;
 }
 
 .group {
-  padding: 10px 0;
+    padding: 10px 0;
 }
+
 .group:not(:last-of-type) {
-  border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .menuOption {
-  line-height: 2em;
-  font-size: 16px;
-  white-space: nowrap;
-  cursor: pointer;
-  padding: 0 15px;
+    line-height: 2em;
+    font-size: 16px;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0 15px;
 }
+
 .menuOption:hover .optionText {
-  text-decoration: underline;
+    text-decoration: underline;
 }
+
 /* dark theme for night lurkers */
 .dark {
-  background: #353535;
-  color: #b8b8b8;
+    background: #353535;
+    color: #b8b8b8;
 }
+
 .dark .group {
-  border-color: #555;
+    border-color: #555;
 }

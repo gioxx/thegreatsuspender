@@ -1,6 +1,6 @@
 /*global gsUtils, gsIndexedDb */
 // eslint-disable-next-line no-unused-vars
-var gsFavicon = (function() {
+const gsFavicon = (function() {
   'use strict';
 
   // const GOOGLE_S2_URL = 'https://www.google.com/s2/favicons?domain_url=';
@@ -304,8 +304,8 @@ var gsFavicon = (function() {
         context.drawImage(img, 0, 0, 16, 16);
 
         const imageData = context.getImageData(0, 0, 16, 16);
-        for (var i = 0; i < imageData.data.length; i += 4) {
-          var luma = Math.floor(
+        for (let i = 0; i < imageData.data.length; i += 4) {
+          let luma = Math.floor(
             imageData.data[i] * 0.3 +
               imageData.data[i + 1] * 0.59 +
               imageData.data[i + 2] * 0.11

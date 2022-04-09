@@ -1,7 +1,7 @@
 /*global chrome, db, tgs, gsUtils, gsChrome, gsSession */
 'use strict';
 
-var gsIndexedDb = {
+const gsIndexedDb = {
   DB_SERVER: 'tgs',
   DB_VERSION: '3',
   DB_PREVIEWS: 'gsPreviews',
@@ -201,8 +201,7 @@ var gsIndexedDb = {
       gsUtils.error('gsIndexedDb', e);
     }
     if (results && results.length > 0) {
-      const faviconMeta = results[0];
-      return faviconMeta;
+      return results[0];
     }
     return null;
   },
@@ -219,12 +218,12 @@ var gsIndexedDb = {
 
       //first check to see if session id already exists
       const matchingSession = await gsIndexedDb.fetchSessionBySessionId(
-        session.sessionId
+        session.sessionId,
       );
       if (matchingSession) {
         gsUtils.log(
           'gsIndexedDb',
-          'Updating existing session: ' + session.sessionId
+          'Updating existing session: ' + session.sessionId,
         );
         session.id = matchingSession.id; //copy across id from matching session
         session.date = new Date().toISOString();
@@ -232,29 +231,13 @@ var gsIndexedDb = {
       } else {
         gsUtils.log(
           'gsIndexedDb',
-          'Creating new session: ' + session.sessionId
+          'Creating new session: ' + session.sessionId,
         );
         await gsDb.add(tableName, session);
       }
     } catch (e) {
       gsUtils.error('gsIndexedDb', e);
     }
-  },
-
-  fetchCurrentSessions: async function() {
-    let results;
-    try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_CURRENT_SESSIONS)
-        .all()
-        .desc()
-        .execute();
-    } catch (e) {
-      gsUtils.error('gsIndexedDb', e);
-      results = [];
-    }
-    return results;
   },
 
   fetchSessionBySessionId: async function(sessionId) {
@@ -277,8 +260,8 @@ var gsIndexedDb = {
         gsUtils.warning(
           'gsIndexedDb',
           'Duplicate sessions found for sessionId: ' +
-            sessionId +
-            '! Removing older ones..'
+          sessionId +
+          '! Removing older ones..',
         );
         for (let session of results.slice(1)) {
           await gsDb.remove(tableName, session.id);
@@ -295,7 +278,7 @@ var gsIndexedDb = {
 
   createOrUpdateSessionRestorePoint: async function(session, version) {
     const existingSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
-      version
+      version,
     );
     if (existingSessionRestorePoint) {
       existingSessionRestorePoint.windows = session.windows;
@@ -308,12 +291,12 @@ var gsIndexedDb = {
       gsUtils.log('gsIndexedDb', 'Created automatic session restore point');
     }
     const newSessionRestorePoint = await gsIndexedDb.fetchSessionRestorePoint(
-      version
+      version,
     );
     gsUtils.log(
       'gsIndexedDb',
       'New session restore point:',
-      newSessionRestorePoint
+      newSessionRestorePoint,
     );
     return newSessionRestorePoint || null;
   },
@@ -353,25 +336,9 @@ var gsIndexedDb = {
     if (results && results.length > 0) {
       //don't want to match on current session
       const currentSessionId = gsSession.getSessionId();
-      const lastSession = results.find(o => o.sessionId !== currentSessionId);
-      return lastSession;
+      return results.find(o => o.sessionId !== currentSessionId);
     }
     return null;
-  },
-
-  fetchSavedSessions: async function() {
-    let results;
-    try {
-      const gsDb = await gsIndexedDb.getDb();
-      results = await gsDb
-        .query(gsIndexedDb.DB_SAVED_SESSIONS)
-        .all()
-        .execute();
-    } catch (e) {
-      gsUtils.error('gsIndexedDb', e);
-      results = [];
-    }
-    return results;
   },
 
   addToSavedSessions: async function(session) {
@@ -383,69 +350,6 @@ var gsIndexedDb = {
     //clear id as it will be either read (if sessionId match found) or generated (if creating a new session)
     delete session.id;
     await gsIndexedDb.updateSession(session);
-  },
-
-  // For testing only!
-  clearGsDatabase: async function() {
-    try {
-      const gsDb = await gsIndexedDb.getDb();
-      await gsDb.clear(gsIndexedDb.DB_CURRENT_SESSIONS);
-      await gsDb.clear(gsIndexedDb.DB_SAVED_SESSIONS);
-    } catch (e) {
-      gsUtils.error('gsIndexedDb', e);
-    }
-  },
-
-  removeTabFromSessionHistory: async function(sessionId, windowId, tabId) {
-    const gsSession = await gsIndexedDb.fetchSessionBySessionId(sessionId);
-    gsSession.windows.some(function(curWindow, windowIndex) {
-      const matched = curWindow.tabs.some(function(curTab, tabIndex) {
-        //leave this as a loose matching as sometimes it is comparing strings. other times ints
-        if (curTab.id == tabId || curTab.url == tabId) {
-          // eslint-disable-line eqeqeq
-          curWindow.tabs.splice(tabIndex, 1);
-          return true;
-        }
-      });
-      if (matched) {
-        //remove window if it no longer contains any tabs
-        if (curWindow.tabs.length === 0) {
-          gsSession.windows.splice(windowIndex, 1);
-        }
-        return true;
-      }
-    });
-
-    //update session
-    if (gsSession.windows.length > 0) {
-      await gsIndexedDb.updateSession(gsSession);
-      //or remove session if it no longer contains any windows
-    } else {
-      await gsIndexedDb.removeSessionFromHistory(sessionId);
-    }
-    const updatedSession = await gsIndexedDb.fetchSessionBySessionId(sessionId);
-    return updatedSession;
-  },
-
-  removeSessionFromHistory: async function(sessionId) {
-    const tableName =
-      sessionId.indexOf('_') === 0
-        ? gsIndexedDb.DB_SAVED_SESSIONS
-        : gsIndexedDb.DB_CURRENT_SESSIONS;
-
-    try {
-      const gsDb = await gsIndexedDb.getDb();
-      const result = await gsDb
-        .query(tableName)
-        .filter('sessionId', sessionId)
-        .execute();
-      if (result.length > 0) {
-        const session = result[0];
-        await gsDb.remove(tableName, session.id);
-      }
-    } catch (e) {
-      gsUtils.error('gsIndexedDb', e);
-    }
   },
 
   trimDbItems: async function() {
@@ -466,7 +370,7 @@ var gsIndexedDb = {
         for (let i = 0; i < itemsToRemove; i++) {
           await gsDb.remove(
             gsIndexedDb.DB_SUSPENDED_TABINFO,
-            suspendedTabInfos[i]
+            suspendedTabInfos[i],
           );
         }
       }
@@ -512,7 +416,7 @@ var gsIndexedDb = {
         for (let i = 0; i < itemsToRemove; i++) {
           await gsDb.remove(
             gsIndexedDb.DB_CURRENT_SESSIONS,
-            currentSessions[i]
+            currentSessions[i],
           );
         }
       }
