@@ -1705,16 +1705,10 @@ var tgs = (function() {
       }
     };
 
-    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-      if (!changeInfo) return;
-
-      if (gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
-        claimTab(tabId);
-      }
-
+    function handleTabsOnUpdated(tabId, changeInfo, tab) {
       // if url has changed
       if (changeInfo.url) {
-        gsUtils.log(tabId, 'tab url changed. changeInfo: ', changeInfo);
+        gsUtils.log(tabId, 'tab updated. changeInfo: ', changeInfo);
         checkForTriggerUrls(tab, changeInfo.url);
         queueSessionTimer();
       }
@@ -1724,7 +1718,34 @@ var tgs = (function() {
       } else if (gsUtils.isNormalTab(tab)) {
         handleUnsuspendedTabStateChanged(tab, changeInfo);
       }
+    }
+
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+      if (!changeInfo) return;
+
+      if (gsStorage.getOption(gsStorage.CLAIM_BY_DEFAULT) && changeInfo.status === 'complete') {
+        claimTab(tabId);
+      }
+
+      if (typeof tab.url === 'undefined') {
+        // Conflicts with other extensions cause tab.url to be missing.
+        // See https://bugs.chromium.org/p/chromium/issues/detail?id=1305284
+        // Resolve this by retrieving the full tab object.
+        chrome.tabs.get(tabId, function(tab) {
+          // Assign changeInfo.url specifically when changeInfo.status is
+          // 'loading', since that is the normal/expected behavior.
+          if (changeInfo?.status == 'loading' && !changeInfo.hasOwnProperty('url')) {
+            changeInfo.url = tab.url;
+          }
+
+          handleTabsOnUpdated(tabId, changeInfo, tab);
+        });
+      }
+      else {
+        handleTabsOnUpdated(tabId, changeInfo, tab);
+      }
     });
+
     chrome.windows.onCreated.addListener(function(window) {
       gsUtils.log(window.id, 'window created.');
       queueSessionTimer();
