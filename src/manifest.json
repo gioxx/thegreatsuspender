@@ -62,7 +62,11 @@
     "128": "img/ic_suspendy_128x128.png"
   },
   "web_accessible_resources": [
-    "suspended.html"
+    "suspended.html",
+    "img/ic_suspendy_16x16.png",
+    "img/ic_suspendy_32x32.png",
+    "img/ic_suspendy_48x48.png",
+    "img/ic_suspendy_128x128.png"
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'; child-src 'self'; connect-src 'self'; img-src 'self' data: chrome:; style-src 'self'; default-src 'self'",
   "incognito": "split",
