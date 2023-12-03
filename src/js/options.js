@@ -84,13 +84,13 @@
             'https://*/*',
             'file://*/*',
           ],
-        }, function(granted) {
+        },).then(function(granted) {
           if (!granted) {
             let select = document.getElementById('preview');
             select.value = '0';
             select.dispatchEvent(new Event('change'));
           }
-        });
+        },)
       }
     });
 
