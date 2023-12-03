@@ -481,7 +481,7 @@ var gsTabSuspendManager = (function() {
     const forceScreenCapture = gsStorage.getOption(
       gsStorage.SCREEN_CAPTURE_FORCE,
     );
-    const screenCaptureLib = 'js/html2canvas.min.js';
+    const screenCaptureLib = 'js/html2canvas.js';
     gsUtils.log(
       tab.id,
       QUEUE_ID,
