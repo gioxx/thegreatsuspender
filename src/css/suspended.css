@@ -8,6 +8,16 @@
    - (_/  \_) - \_)
 
 */
+/* color scheme selection */
+:root {
+  color-scheme: light dark;
+}
+:root.light {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
 html,
 body {
     margin: 0;
@@ -104,6 +114,11 @@ body.suspended-page:not(.img-preview-mode) {
 .dark .faviconWrapLowContrast {
     filter: invert(1) grayscale(1);
 }
+@media (prefers-color-scheme: dark) {
+    .faviconWrapLowContrast {
+        filter: invert(1) grayscale(1);
+    }
+}
 .gsTopBarImg {
     height: 16px;
     width: 16px;
@@ -153,6 +168,15 @@ body.suspended-page:not(.img-preview-mode) {
 }
 .dark .gsPreviewImg:hover {
     opacity: 1;
+}
+@media (prefers-color-scheme: dark) {
+    .gsPreviewImg {
+        filter: brightness(70%);
+        opacity: 0.7;
+    }
+    .gsPreviewImg:hover {
+        opacity: 1;
+    }
 }
 body.img-preview-mode .gsTopBar {
     position: relative;
@@ -233,7 +257,7 @@ body.img-preview-mode .gsTopBar {
 }
 
 /* dark theme for night lurkers */
-.dark,
+.dark body,
 .dark .gsTopBar,
 .dark .suspendedMsg {
     background: #222;
@@ -251,6 +275,28 @@ body.img-preview-mode .gsTopBar {
 .dark #setKeyboardShortcut {
     text-decoration: underline;
     color: #b8b8b8;
+}
+
+@media (prefers-color-scheme: dark) {
+    body,
+    .gsTopBar,
+    .suspendedMsg {
+        background: #222;
+    }
+    .suspendedMsg img {
+        filter: brightness(150%);
+    }
+    .gsTopBar,
+    .gsTopBarTitle,
+    .gsTopBar a,
+    .suspendedMsg,
+    .watermark {
+        color: #b8b8b8;
+    }
+    #setKeyboardShortcut {
+        text-decoration: underline;
+        color: #b8b8b8;
+    }
 }
 
 /* end suspended tab styles */
