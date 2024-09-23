@@ -14,58 +14,31 @@ module.exports = function(grunt) {
     },
     copy: {
       main: {
-        expand: true,
-        src: ['src/**', '!src/tests.html', '!src/js/tests/**'],
-        dest: '<%= config.tempDir %>',
+        files: [
+          // Copy other files and directories
+          { expand: true, cwd: 'src/', src: ['**'], dest: 'build/' },
+          // Copy manifest.json to the root of the build directory
+          { expand: true, cwd: 'src/', src: ['manifest.json'], dest: 'build/' },
+          // Copy background.js to the root of the build directory
+          {
+            expand: true,
+            cwd: 'src/js/',
+            src: ['background.js'],
+            dest: 'build/',
+          },
+        ],
       },
     },
     'string-replace': {
       debugoff: {
         files: {
-          '<%= config.tempDir %>src/js/':
-            '<%= config.tempDir %>src/js/gsUtils.js',
+          'build/': 'build/**/*',
         },
         options: {
           replacements: [
             {
-              pattern: /debugInfo\s*=\s*true/,
-              replacement: 'debugInfo = false',
-            },
-            {
-              pattern: /debugError\s*=\s*true/,
-              replacement: 'debugError = false',
-            },
-          ],
-        },
-      },
-      debugon: {
-        files: {
-          '<%= config.tempDir %>src/js/':
-            '<%= config.tempDir %>src/js/gsUtils.js',
-        },
-        options: {
-          replacements: [
-            {
-              pattern: /debugInfo\s*=\s*false/,
-              replacement: 'debugInfo = true',
-            },
-            {
-              pattern: /debugError\s*=\s*false/,
-              replacement: 'debugError = true',
-            },
-          ],
-        },
-      },
-      localesTgut: {
-        files: {
-          '<%= config.tempDir %>src/_locales/':
-            '<%= config.tempDir %>src/_locales/**',
-        },
-        options: {
-          replacements: [
-            {
-              pattern: /The Great Suspender/gi,
-              replacement: 'The Great Tester',
+              pattern: /console\.log\(.+?\);/g,
+              replacement: '',
             },
           ],
         },
@@ -73,39 +46,28 @@ module.exports = function(grunt) {
     },
     crx: {
       public: {
-        src: [
-          '<%= config.tempDir %>src/**/*',
-          '!**/html2canvas.js',
-          '!**/Thumbs.db',
-        ],
-        dest: 'build/zip/<%= config.buildName %>.zip',
+        src: 'build/**/*',
+        dest: 'build/zip/tgs-<%= pkg.version %>.zip',
       },
       private: {
-        src: [
-          '<%= config.tempDir %>src/**/*',
-          '!**/html2canvas.js',
-          '!**/Thumbs.db',
-        ],
-        dest: 'build/crx/<%= config.buildName %>.crx',
+        src: 'build/**/*',
+        dest: 'build/crx/tgs-<%= pkg.version %>.crx',
         options: {
           privateKey: 'key.pem',
         },
       },
     },
-    clean: ['<%= config.tempDir %>'],
+    clean: {
+      build: ['build/'],
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-crx');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.registerTask('default', [
-    'copy',
-    'string-replace:debugoff',
-    'crx:public',
-    'crx:private',
-    'clean',
-  ]);
+
+  grunt.registerTask('default', ['clean', 'copy', 'string-replace', 'crx']);
   grunt.registerTask('tgut', [
     'copy',
     'string-replace:debugon',
