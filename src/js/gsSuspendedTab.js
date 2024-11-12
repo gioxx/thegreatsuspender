@@ -176,10 +176,15 @@ var gsSuspendedTab = (function() {
   }
 
   function setTheme(_document, theme, isLowContrastFavicon) {
-    if (theme === 'dark') {
-      _document.querySelector('body').classList.add('dark');
+    if (theme === 'light') {
+      _document.querySelector(':root').classList.add('light');
     } else {
-      _document.querySelector('body').classList.remove('dark');
+      _document.querySelector(':root').classList.remove('light');
+    }
+    if (theme === 'dark') {
+      _document.querySelector(':root').classList.add('dark');
+    } else {
+      _document.querySelector(':root').classList.remove('dark');
     }
 
     if (theme === 'dark' && isLowContrastFavicon) {

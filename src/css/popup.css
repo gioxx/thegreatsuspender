@@ -75,11 +75,31 @@ a {
 .menuOption:hover .optionText {
   text-decoration: underline;
 }
+/* color scheme selection */
+:root {
+  color-scheme: light dark;
+}
+:root.light {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
 /* dark theme for night lurkers */
-.dark {
+.dark body {
   background: #353535;
   color: #b8b8b8;
 }
 .dark .group {
   border-color: #555;
 }
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #353535;
+    color: #b8b8b8;
+  }
+  .group {
+    border-color: #555;
+  }
+}
+
