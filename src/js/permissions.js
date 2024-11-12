@@ -20,7 +20,7 @@
       e
     ) {
       await gsChrome.tabsCreate({
-        url: 'chrome://extensions?id=' + chrome.runtime.id,
+        url: 'about:addons?id=' + browser.extension.getURL ('.').replace('moz-extension:', '').replace('/', ''),
       });
     };
   });

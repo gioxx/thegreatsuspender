@@ -28,7 +28,7 @@
       commands.forEach(command => {
         if (command.name !== '_execute_browser_action') {
           const shortcut =
-            command.shortcut !== ''
+            (command.shortcut !== '' && command.shortcut !== null)
               ? gsUtils.formatHotkeyString(command.shortcut)
               : '(' + notSetMessage + ')';
           var addMarginBottom = groupingKeys.includes(command.name);

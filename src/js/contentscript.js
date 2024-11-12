@@ -14,7 +14,7 @@
   let isIgnoreForms = false;
   let tempWhitelist = false;
 
-  function formInputListener(e) {
+  function formInputListener(event) {
     if (!isReceivingFormInput && !tempWhitelist) {
       if (event.keyCode >= 48 && event.keyCode <= 90 && event.target.tagName) {
         if (

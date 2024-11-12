@@ -338,7 +338,14 @@ var gsTabCheckManager = (function() {
     resolve(discarded ? gsUtils.STATUS_DISCARDED : gsUtils.STATUS_SUSPENDED);
   }
 
-  async function resuspendSuspendedTab(tab) {
+  async function resuspendSuspendedTab(tab) {  
+  // Avoid reloading currently unsuspending tab since it's not meant to be
+    // the case and is unnessesary on Chrome and completely broken in Firefox
+    if (tgs.getTabStatePropForTabId(tab.id, tgs.STATE_IS_UNSUSPENDING )) {
+      gsUtils.log(tab.id, QUEUE_ID, 'Not resuspending unsuspending tab.');
+      return true;
+    }
+    
     gsUtils.log(tab.id, QUEUE_ID, 'Resuspending unresponsive suspended tab.');
     const suspendedView = tgs.getInternalViewByTabId(tab.id);
     if (suspendedView) {
@@ -348,6 +355,7 @@ var gsTabCheckManager = (function() {
         true
       );
     }
+
     const reloadOk = await gsChrome.tabsReload(tab.id);
     return reloadOk;
   }

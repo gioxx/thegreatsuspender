@@ -28,9 +28,10 @@ var tgs = (function() {
   const STATE_INITIALISE_SUSPENDED_TAB = 'initialiseSuspendedTab';
   const STATE_UNLOADED_URL = 'unloadedUrl';
   const STATE_HISTORY_URL_TO_REMOVE = 'historyUrlToRemove';
-  const STATE_SET_AUTODISCARDABLE = 'setAutodiscardable';
+  // const STATE_SET_AUTODISCARDABLE = 'setAutodiscardable';
   const STATE_SUSPEND_REASON = 'suspendReason'; // 1=auto-suspend, 2=manual-suspend, 3=discarded
   const STATE_SCROLL_POS = 'scrollPos';
+  const STATE_IS_UNSUSPENDING = 'currentlyUnsuspending';
 
   const focusDelay = 500;
 
@@ -333,11 +334,11 @@ var tgs = (function() {
       calculateTabStatus(tab, contentScriptStatus, function(newStatus) {
         setIconStatus(newStatus, tab.id);
         //This is a hotfix for issue #723
-        if (newStatus === 'tempWhitelist' && tab.autoDiscardable) {
-          chrome.tabs.update(tab.id, {
-            autoDiscardable: false,
-          });
-        }
+        // if (newStatus === 'tempWhitelist' && tab.autoDiscardable) {
+        //   chrome.tabs.update(tab.id, {
+        //     autoDiscardable: false,
+        //   });
+        // }
         if (callback) callback(newStatus);
       });
     });
@@ -360,12 +361,12 @@ var tgs = (function() {
       calculateTabStatus(tab, contentScriptStatus, function(newStatus) {
         setIconStatus(newStatus, tab.id);
         //This is a hotfix for issue #723
-        if (newStatus !== 'tempWhitelist' && !tab.autoDiscardable) {
-          chrome.tabs.update(tab.id, {
-            //async
-            autoDiscardable: true,
-          });
-        }
+        // if (newStatus !== 'tempWhitelist' && !tab.autoDiscardable) {
+        //   chrome.tabs.update(tab.id, {
+        //     //async
+        //     autoDiscardable: true,
+        //   });
+        // }
         if (callback) callback(newStatus);
       });
     });
@@ -613,15 +614,19 @@ var tgs = (function() {
       // Reloading chrome.tabs.update causes a history item for the suspended tab
       // to be made in the tab history. We clean this up on tab updated hook
       setTabStatePropForTabId(tab.id, tgs.STATE_HISTORY_URL_TO_REMOVE, tab.url);
-      if (tab.autoDiscardable) {
-        setTabStatePropForTabId(tab.id, tgs.STATE_SET_AUTODISCARDABLE, tab.url);
-      }
+      // if (tab.autoDiscardable) {
+      //   setTabStatePropForTabId(tab.id, tgs.STATE_SET_AUTODISCARDABLE, tab.url);
+      // }
+      // Handle conсurrency issue when checker trashes reloading tab
+      // Significant in Firefox as tabs goes to about:blank instead of originalUrl
+      setTabStatePropForTabId(tab.id, tgs.STATE_IS_UNSUSPENDING, true);
       // NOTE: Temporarily disable autoDiscardable, as there seems to be a bug
       // where discarded (and frozen?) suspended tabs will not unsuspend with
       // chrome.tabs.update if this is set to true. This gets unset again after tab
       // has reloaded via the STATE_SET_AUTODISCARDABLE flag.
       gsUtils.log(tab.id, 'Unsuspending tab via chrome.tabs.update');
-      chrome.tabs.update(tab.id, { url: originalUrl, autoDiscardable: false });
+      // autoDiscardable is not supported in Firefox
+      chrome.tabs.update(tab.id, { url: originalUrl, loadReplace: true});
       return;
     }
 
@@ -645,9 +650,9 @@ var tgs = (function() {
 
   function checkForTriggerUrls(tab, url) {
     // test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
-    }
+    // if (url === 'chrome://extensions/shortcuts') {
+    //   _triggerHotkeyUpdate = true;
+    // }
   }
 
   function handleUnsuspendedTabStateChanged(tab, changeInfo) {
@@ -742,18 +747,20 @@ var tgs = (function() {
           tab.id,
           STATE_HISTORY_URL_TO_REMOVE,
         );
+        /*
         const setAutodiscardable = getTabStatePropForTabId(
           tab.id,
           STATE_SET_AUTODISCARDABLE,
         );
+        */
         clearTabStateForTabId(tab.id);
 
         if (historyUrlToRemove) {
           removeTabHistoryForUnuspendedTab(historyUrlToRemove);
         }
-        if (setAutodiscardable) {
-          gsChrome.tabsUpdate(tab.id, { autoDiscardable: true });
-        }
+        // if (setAutodiscardable) {
+        //   gsChrome.tabsUpdate(tab.id, { autoDiscardable: true });
+        // }
 
         //init loaded tab
         resetAutoSuspendTimerForTab(tab);
@@ -790,12 +797,11 @@ var tgs = (function() {
       const latestVisit = visits.pop();
       const previousVisit = visits.pop();
       if (previousVisit) {
-        chrome.history.deleteRange(
+        browser.history.deleteRange(
           {
-            startTime: previousVisit.visitTime - 0.1,
-            endTime: previousVisit.visitTime + 0.1,
-          },
-          () => {
+            // Firefox does not accept floats here
+            startTime: previousVisit.visitTime - 1,
+            endTime: previousVisit.visitTime + 1,
           },
         );
       }
@@ -1039,9 +1045,9 @@ var tgs = (function() {
     queueNewTabFocusTimer(tabId, windowId, focusedTab);
 
     //test for a save of keyboard shortcuts (chrome://extensions/shortcuts)
-    if (focusedTab.url === 'chrome://extensions/shortcuts') {
-      _triggerHotkeyUpdate = true;
-    }
+    // if (focusedTab.url === 'chrome://extensions/shortcuts') {
+    //   _triggerHotkeyUpdate = true;
+    // }
 
     let discardAfterSuspend = gsStorage.getOption(
       gsStorage.DISCARD_AFTER_SUSPEND,
@@ -1279,10 +1285,10 @@ var tgs = (function() {
       return;
     }
     //check if it is a blockedFile tab (this needs to have precedence over isSpecialTab)
-    if (gsUtils.isBlockedFileTab(tab)) {
-      callback(gsUtils.STATUS_BLOCKED_FILE);
-      return;
-    }
+    // if (gsUtils.isBlockedFileTab(tab)) {
+    //   callback(gsUtils.STATUS_BLOCKED_FILE);
+    //   return;
+    // }
     //check if it is a special tab
     if (gsUtils.isSpecialTab(tab)) {
       callback(gsUtils.STATUS_SPECIAL);
@@ -1555,14 +1561,16 @@ var tgs = (function() {
     if (request.action === 'reportTabState') {
       var contentScriptStatus =
         request && request.status ? request.status : null;
-      if (
-        contentScriptStatus === 'formInput' ||
-        contentScriptStatus === 'tempWhitelist'
-      ) {
-        chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
-      } else if (!sender.tab.autoDiscardable) {
-        chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
-      }
+
+      // if (
+      //   contentScriptStatus === 'formInput' ||
+      //   contentScriptStatus === 'tempWhitelist'
+      // ) {
+      //   chrome.tabs.update(sender.tab.id, { autoDiscardable: false });
+      // } else if (!sender.tab.autoDiscardable) {
+      //   chrome.tabs.update(sender.tab.id, { autoDiscardable: true });
+      // }
+
       // If tab is currently visible then update popup icon
       if (sender.tab && isCurrentFocusedTab(sender.tab)) {
         calculateTabStatus(sender.tab, contentScriptStatus, function(status) {
@@ -1785,7 +1793,7 @@ var tgs = (function() {
     STATE_HISTORY_URL_TO_REMOVE,
     STATE_TEMP_WHITELIST_ON_RELOAD,
     STATE_DISABLE_UNSUSPEND_ON_RELOAD,
-    STATE_SET_AUTODISCARDABLE,
+    // STATE_SET_AUTODISCARDABLE,
     STATE_SUSPEND_REASON,
     STATE_SCROLL_POS,
     getTabStatePropForTabId,

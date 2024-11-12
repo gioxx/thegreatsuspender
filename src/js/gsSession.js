@@ -407,7 +407,7 @@ var gsSession = (function() {
     // as there is a chance during tabInitialisation of a suspended tab getting reloaded
     // directly and hence keeping its tabId (ie: file:// tabs)
     function matchingTabExists(tab) {
-      if (tab.url.indexOf('chrome://newtab') === 0 && tab.index === 0)
+      if (String(tab.url).startsWith('about:') && tab.index === 0)
         return false;
       return lastSessionTabs.some(o => o.id === tab.id && o.url === tab.url);
     }

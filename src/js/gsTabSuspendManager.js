@@ -152,7 +152,7 @@ var gsTabSuspendManager = (function() {
         QUEUE_ID,
         'Tab is not responding. Will reload for screen capture.',
       );
-      await gsChrome.tabsUpdate(tab.id, { url: tab.url });
+      await gsChrome.tabsUpdate(tab.id, { url: tab.url, loadReplace: true });
       // allow up to 30 seconds for tab to reload and trigger its subsequent suspension request
       // note that this will not reset the DEFAULT_SUSPENSION_TIMEOUT of 60 seconds
       requeue(30000, { reloaded: true });
@@ -303,6 +303,10 @@ var gsTabSuspendManager = (function() {
       let discardInPlaceOfSuspend = gsStorage.getOption(
         gsStorage.DISCARD_IN_PLACE_OF_SUSPEND,
       );
+      if (tab.cookieStoreId != "firefox-default") {
+        gsUtils.log("Tab uses non-default container " + tab.cookieStoreId)
+        discardInPlaceOfSuspend = true;
+      }
       if (discardInPlaceOfSuspend) {
         tgs.clearAutoSuspendTimerForTabId(tab.id);
         gsTabDiscardManager.queueTabForDiscard(tab);
@@ -327,7 +331,7 @@ var gsTabSuspendManager = (function() {
         tgs.STATE_INITIALISE_SUSPENDED_TAB,
         true,
       );
-      gsChrome.tabsUpdate(tab.id, { url: suspendedUrl }).then(updatedTab => {
+      gsChrome.tabsUpdate(tab.id, { url: suspendedUrl, loadReplace: true }).then(updatedTab => {
         resolve(updatedTab !== null);
       });
     });
@@ -452,6 +456,7 @@ var gsTabSuspendManager = (function() {
   }
 
   async function saveSuspendData(tab) {
+    gsUtils.log('Saving suspend data for tab', tab)
     const tabProperties = {
       date: new Date(),
       title: tab.title,
@@ -463,8 +468,8 @@ var gsTabSuspendManager = (function() {
     };
     await gsIndexedDb.addSuspendedTabInfo(tabProperties);
 
-    const faviconMeta = await gsFavicon.buildFaviconMetaFromChromeFaviconCache(
-      tab.url,
+    const faviconMeta = await gsFavicon.buildFaviconMetaFromFirefoxFavicon(
+      tab.favIconUrl,
     );
     if (faviconMeta) {
       await gsFavicon.saveFaviconMetaDataToCache(tab.url, faviconMeta);
@@ -476,7 +481,7 @@ var gsTabSuspendManager = (function() {
     const forceScreenCapture = gsStorage.getOption(
       gsStorage.SCREEN_CAPTURE_FORCE,
     );
-    const screenCaptureLib = 'js/html2canvas.min.js';
+    const screenCaptureLib = 'js/html2canvas.js';
     gsUtils.log(
       tab.id,
       QUEUE_ID,

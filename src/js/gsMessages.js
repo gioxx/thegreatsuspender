@@ -130,13 +130,17 @@ var gsMessages = {
       if (callback) callback('tabId not specified');
       return;
     }
-    chrome.tabs.executeScript(tabId, { file: scriptPath }, function(response) {
-      if (chrome.runtime.lastError) {
-        if (callback) callback(chrome.runtime.lastError);
-      } else {
+    gsUtils.log(`executing script ${scriptPath}`)
+
+    var executing = browser.tabs.executeScript(tabId, { file: scriptPath });
+
+    if (executing) {
+      executing.then(function(response) {
         if (callback) callback(null, response);
-      }
-    });
+      }, function(error) {
+        if (callback) callback(error);
+      })
+    }
   },
 
   executeCodeOnTab: function(tabId, codeString, callback) {
@@ -144,12 +148,17 @@ var gsMessages = {
       if (callback) callback('tabId not specified');
       return;
     }
-    chrome.tabs.executeScript(tabId, { code: codeString }, function(response) {
-      if (chrome.runtime.lastError) {
-        if (callback) callback(chrome.runtime.lastError);
-      } else {
+    gsUtils.log(`executing code ${codeString}`)
+
+    var executing = chrome.tabs.executeScript(tabId, { code: codeString });
+
+    if (executing) {
+
+      executing.then(function(response) {
         if (callback) callback(null, response);
-      }
-    });
+      }, function(error) {
+        if (callback) callback(error);
+      })
+    }
   },
 };

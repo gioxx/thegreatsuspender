@@ -90,13 +90,11 @@ var gsTabDiscardManager = (function() {
       return;
     }
     gsUtils.log(tab.id, QUEUE_ID, 'Forcing discarding of tab.');
-    chrome.tabs.discard(tab.id, () => {
-      if (chrome.runtime.lastError) {
-        gsUtils.warning(tab.id, QUEUE_ID, chrome.runtime.lastError);
-        resolve(false);
-      } else {
-        resolve(true);
-      }
+    browser.tabs.discard(tab.id).then(() => {
+      resolve(true);
+    }).catch((err) => {
+      gsUtils.warning(tab.id, QUEUE_ID, err);
+      resolve(false);
     });
   }
 
